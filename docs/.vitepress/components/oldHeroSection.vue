@@ -1,37 +1,73 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue'
-import { withBase } from 'vitepress'
+import { withBase, useData } from 'vitepress'
 import SpotlightBackground from './SpotlightBackground.vue'
 
-interface Props {
-  headline?: string
-  subtitle?: string
-  primaryButtonText?: string
-  primaryButtonLink?: string
-  secondaryButtonText?: string
-  secondaryButtonLink?: string
-  imageSrc?: string
-  imageAltText?: string
-  animationDelay?: number
+// 1. O hook useData() nos dá acesso aos dados da página, incluindo o idioma atual.
+const { lang } = useData()
+
+// 2. Criamos um "dicionário" com todas as traduções.
+const translations = {
+  pt: {
+    headline: 'Involves Stage API',
+    subtitle: 'Transformamos a documentação da API em uma experiência mais fluida e acessível.\nCom linguagem clara e exemplos úteis, você entende rápido o que precisa fazer e ganha agilidade no processo de integração.',
+    primaryButtonText: 'Conheça a API',
+    primaryButtonLink: '/pt/intro',
+    secondaryButtonText: 'Central de Ajuda',
+    secondaryButtonLink: 'https://help.involves.com/hc/pt-br',
+    imageAltText: 'Preview da documentação da API Involves Stage'
+  },
+  en: {
+    headline: 'Involves Stage API',
+    subtitle: 'We turn API documentation into a more fluid and accessible experience.\nWith clear language and helpful examples, you can quickly understand what you need to do and streamline the integration process.',
+    primaryButtonText: 'Explore the API',
+    primaryButtonLink: '/en/intro',
+    secondaryButtonText: 'Help Center',
+    secondaryButtonLink: 'https://help.involves.com/hc/en-us',
+    imageAltText: 'Preview of the Involves Stage API documentation'
+  },
+  es: {
+    headline: 'API de Involves Stage',
+    subtitle: 'Transformamos la documentación de la API en una experiencia más fluida y accesible.\nCon un lenguaje claro y ejemplos útiles, entiendes rápidamente lo que necesitas y ganas agilidad en el proceso de integración.',
+    primaryButtonText: 'Explora la API',
+    primaryButtonLink: '/es/intro',
+    secondaryButtonText: 'Centro de Ayuda',
+    secondaryButtonLink: 'https://help.involves.com/hc/es',
+    imageAltText: 'Vista previa de la documentación de la API de Involves Stage'
+  },
+  fr: {
+    headline: 'API Involves Stage',
+    subtitle: "Nous transformons la documentation de l'API en une expérience plus fluide et accessible.\nAvec un langage clair et des exemples utiles, vous comprenez rapidement ce que vous devez faire et gagnez en agilité.",
+    primaryButtonText: "Découvrez l'API",
+    primaryButtonLink: '/fr/intro',
+    secondaryButtonText: "Centre d'Aide",
+    secondaryButtonLink: 'https://help.involves.com/hc/fr',
+    imageAltText: "Aperçu de la documentation de l'API Involves Stage"
+  }
 }
 
-const props = withDefaults(defineProps<Props>(), {
-  headline: 'Involves Stage API',
-  subtitle: 'Transformamos a documentação da API em uma experiência mais fluida e acessível.\nCom linguagem clara e exemplos úteis, você entende rápido o que precisa fazer e ganha agilidade no processo de integração.',
-  primaryButtonText: 'Conheça a API',
-  primaryButtonLink: '/pt/intro',
-  secondaryButtonText: 'Central de Ajuda',
-  secondaryButtonLink: 'https://help.involves.com/hc/pt-br',
-  imageSrc: '/1440.png',
-  imageAltText: 'Preview da documentação da API Involves Stage',
-  animationDelay: 100
+// 3. Criamos uma propriedade computada que seleciona o conjunto de textos correto com base no idioma.
+// Se o idioma não for encontrado, ele usa 'pt' como padrão.
+const t = computed(() => translations[lang.value] || translations.pt)
+
+// 4. Props que não mudam com o idioma podem permanecer.
+const props = defineProps({
+  imageSrc: {
+    type: String,
+    default: '/1440.png'
+  },
+  animationDelay: {
+    type: Number,
+    default: 100
+  }
 })
 
 const isImageLoading = ref(true)
 const animationStarted = ref(false)
 
+// O headline agora vem do nosso objeto de tradução 't'.
 const headlineWords = computed(() =>
-  props.headline.trim().split(' ').filter(Boolean)
+  t.value.headline.trim().split(' ').filter(Boolean)
 )
 
 const onImageLoad = () => (isImageLoading.value = false)
@@ -41,9 +77,7 @@ const onImageError = (e: Event) => {
 }
 
 onMounted(() => {
-  // dispara animação
   requestAnimationFrame(() => (animationStarted.value = true))
-  // se a imagem já carregou antes da hidratação, remove skeleton
   const img = document.querySelector('.preview-image') as HTMLImageElement | null
   if (img?.complete) isImageLoading.value = false
 })
@@ -52,10 +86,7 @@ onMounted(() => {
 <template>
   <SpotlightBackground>
     <div class="hero-container">
-      <!-- decoradores omitidos para brevidade -->
-
       <main class="main-content">
-        <!-- Headline -->
         <h1 class="headline" role="banner">
           <span
             v-for="(word, idx) in headlineWords"
@@ -68,43 +99,41 @@ onMounted(() => {
           </span>
         </h1>
 
-        <!-- Sub-título -->
         <p class="subtitle" :class="{ 'is-visible': animationStarted }">
-          {{ subtitle }}
+          {{ t.subtitle }}
         </p>
 
-        <!-- Botões -->
         <div class="buttons-container" :class="{ 'is-visible': animationStarted }">
           <a
-            :href="primaryButtonLink"
+            :href="withBase(t.primaryButtonLink)"
             class="button button--primary"
-            :aria-label="`${primaryButtonText} - Acessar documentação da API`"
+            :aria-label="`${t.primaryButtonText} - Acessar documentação da API`"
           >
-            <span class="button__text">{{ primaryButtonText }}</span>
+            <span class="button__text">{{ t.primaryButtonText }}</span>
             <span class="button__icon" aria-hidden="true">→</span>
           </a>
           <a
-            :href="secondaryButtonLink"
+            :href="t.secondaryButtonLink"
             class="button button--secondary"
-            :aria-label="`${secondaryButtonText} - Obter suporte técnico`"
+            target="_blank"
+            rel="noopener noreferrer"
+            :aria-label="`${t.secondaryButtonText} - Obter suporte técnico`"
           >
-            <span class="button__text">{{ secondaryButtonText }}</span>
+            <span class="button__text">{{ t.secondaryButtonText }}</span>
           </a>
         </div>
 
-        <!-- Imagem -->
         <div class="image-preview" :class="{ 'is-visible': animationStarted }">
           <div class="image-container">
             <img
               class="preview-image"
               :src="withBase(imageSrc)"
-              :alt="imageAltText"
+              :alt="t.imageAltText"
               loading="eager"
               decoding="async"
               @load="onImageLoad"
               @error="onImageError"
             />
-            <!-- overlay apenas enquanto carregando -->
             <div v-if="isImageLoading" class="image-skeleton" aria-hidden="true" />
           </div>
         </div>
@@ -114,7 +143,7 @@ onMounted(() => {
 </template>
 
 <style scoped>
-/* CSS Variables for theming */
+/* Os estilos permanecem os mesmos */
 :host {
   --primary-color: #3b82f6;
   --border-color: var(--vp-c-divider);
@@ -132,9 +161,6 @@ onMounted(() => {
   justify-content: center;
 }
 
-
-
-/* --- Main Content --- */
 .main-content {
   padding: 2.5rem 1rem;
   text-align: center;
@@ -152,7 +178,6 @@ onMounted(() => {
   line-height: 1.1;
 }
 
-/* Animação das palavras */
 .word-span {
   display: inline-block;
   margin-right: 0.5rem;
@@ -186,7 +211,6 @@ onMounted(() => {
   will-change: opacity;
 }
 
-/* --- Buttons --- */
 .buttons-container {
   margin-top: 2rem;
   display: flex;
@@ -241,7 +265,6 @@ onMounted(() => {
   border-color: var(--vp-hero-primary-color);
 }
 
-/* --- Image Preview --- */
 .image-preview {
   margin-top: 5rem;
   opacity: 0;
@@ -250,7 +273,6 @@ onMounted(() => {
   will-change: opacity, transform;
 }
 
-/* AJUSTE: Aplicando cantos arredondados e sombra diretamente no container da imagem */
 .image-container {
   position: relative;
   overflow: visible;
@@ -281,7 +303,6 @@ onMounted(() => {
   animation: skeleton-loading 1.5s infinite;
 }
 
-/* --- Visibility & Animations --- */
 .is-visible {
   opacity: 1;
   transform: translateY(0) blur(0);
@@ -296,7 +317,6 @@ onMounted(() => {
   100% { background-position: -200% 0; }
 }
 
-/* --- Responsive Design --- */
 @media (max-width: 768px) {
   .hero-container { margin: 1rem auto; }
   .main-content { padding: 1rem; }
@@ -312,7 +332,6 @@ onMounted(() => {
   .subtitle { font-size: 1rem; }
 }
 
-/* --- Accessibility --- */
 @media (prefers-reduced-motion: reduce) {
   .word-span,
   .subtitle,
@@ -331,5 +350,4 @@ onMounted(() => {
     border: 2px solid currentColor;
   }
 }
-
 </style>

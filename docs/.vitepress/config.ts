@@ -25,6 +25,7 @@ export default defineConfig({
   lastUpdated: false,
   ignoreDeadLinks: true,
 
+
   head: [
     ['meta', { name: 'theme-color', content: '#646cff' }],
     ['meta', { name: 'viewport', content: 'width=device-width, initial-scale=1.0' }],
@@ -32,9 +33,10 @@ export default defineConfig({
   ],
 
   locales: {
-    root: {
+    pt: {
       label: 'Português (Brasil)',
       lang: 'pt',
+      link: '/pt/',
       title: 'Involves Stage API Reference',
       description: 'Documentação Oficial do Involves Stage',
       themeConfig: {
