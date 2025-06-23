@@ -1,25 +1,59 @@
 {
+  "name": "api-docs-involves",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Documentação oficial da API da Involves, construída com VitePress.",
+  "author": {
+    "name": "Rafael Teixeira",
+    "email": "teixeirac.rafael@gmail.com",
+    "url": "https://github.com/rafactx"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rafactx/api-docs.git"
+  },
+  "license": "UNLICENSED",
+  "keywords": [
+    "api",
+    "docs",
+    "vitepress",
+    "involves"
+  ],
   "type": "module",
-  "devDependencies": {
-    "@scalar/api-reference": "^1.31.18",
-    "@types/accept-language-parser": "^1.5.8",
-    "@types/node": "^24.0.3",
-    "@vercel/edge": "^1.2.2",
-    "accept-language-parser": "^1.5.0",
-    "typescript": "^5.8.3",
-    "vite": "^6.3.5",
-    "vitepress": "^1.6.3",
-    "vitepress-plugin-group-icons": "1.6.0"
+  "packageManager": "pnpm@8.15.5",
+  "engines": {
+    "node": ">=18.0.0",
+    "pnpm": ">=8.15.5"
   },
   "scripts": {
     "dev": "vitepress dev docs",
     "build": "vitepress build docs",
-    "clean": "rm -rf docs/.vitepress/dist",
-    "preview": "vitepress preview docs"
+    "preview": "vitepress preview docs",
+    "clean": "rimraf ./docs/.vitepress/dist",
+    "format": "prettier --write .",
+    "lint": "eslint . --ext .js,.ts,.vue --fix"
   },
   "dependencies": {
     "@vueuse/core": "^13.4.0",
     "@vueuse/motion": "^3.0.3",
     "vue": "^3.5.17"
+  },
+  "devDependencies": {
+    "@scalar/api-reference": "^1.31.18",
+    "@types/accept-language-parser": "^1.5.8",
+    "@types/node": "^24.0.3",
+    "@typescript-eslint/eslint-plugin": "^8.34.1",
+    "@typescript-eslint/parser": "^8.34.1",
+    "@vercel/edge": "^1.2.2",
+    "accept-language-parser": "^1.5.0",
+    "eslint": "^9.6.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-vue": "^9.27.0",
+    "prettier": "^3.3.2",
+    "rimraf": "^5.0.7",
+    "typescript": "^5.8.3",
+    "vite": "^6.3.5",
+    "vitepress": "^1.6.3",
+    "vitepress-plugin-group-icons": "1.6.0"
   }
 }
