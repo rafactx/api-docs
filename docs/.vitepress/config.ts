@@ -24,7 +24,6 @@ export default defineConfig({
   cleanUrls: true,
   lastUpdated: false,
   ignoreDeadLinks: true,
-  outDir: '../../dist',
 
   head: [
     ['meta', { name: 'theme-color', content: '#646cff' }],
