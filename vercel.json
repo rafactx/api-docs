@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "buildCommand": "pnpm docs:build",
+  "buildCommand": "pnpm vitepress build docs",
   "installCommand": "corepack enable && corepack prepare pnpm@8.15.5 --activate && pnpm install",
   "outputDirectory": "docs/.vitepress/dist",
   "cleanUrls": true,
