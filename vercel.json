@@ -3,19 +3,13 @@
   "buildCommand": "pnpm vitepress build docs",
   "installCommand": "corepack enable && corepack prepare pnpm@8.15.5 --activate && pnpm install",
   "outputDirectory": "docs/.vitepress/dist",
-  "cleanUrls": true,
+  "cleanUrls": false,
   "trailingSlash": false,
   "redirects": [
     {
       "source": "/",
       "destination": "/pt/",
       "permanent": false
-    }
-  ],
-  "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/$1"
     }
   ]
 }
