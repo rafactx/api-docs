@@ -3,12 +3,10 @@
   "installCommand": "pnpm install",
   "buildCommand": "pnpm vitepress build docs",
   "outputDirectory": "docs/.vitepress/dist",
-  "cleanUrls": true,
-  "redirects": [
+  "rewrites": [
     {
-      "source": "/",
-      "destination": "/pt",
-      "permanent": true
+      "source": "/:path((?!.*\\.).*)",
+      "destination": "/:path.html"
     }
   ]
 }
