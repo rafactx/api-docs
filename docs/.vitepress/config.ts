@@ -20,6 +20,7 @@ const sharedFooter = {
 }
 
 export default defineConfig({
+  base: '/',
   cleanUrls: true,
   lastUpdated: false,
   ignoreDeadLinks: true,

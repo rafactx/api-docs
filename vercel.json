@@ -4,11 +4,5 @@
   "installCommand": "corepack enable && corepack prepare pnpm@8.15.5 --activate && pnpm install",
   "outputDirectory": "docs/.vitepress/dist",
   "cleanUrls": true,
-  "trailingSlash": false,
-  "rewrites": [
-    {
-      "source": "/",
-      "destination": "/docs/index.html"
-    }
-  ]
+  "trailingSlash": false
 }
