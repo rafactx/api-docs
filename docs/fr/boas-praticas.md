@@ -28,7 +28,6 @@ Caso isso mude futuramente, você será informado com antecedência.
 A API segue os métodos HTTP padrão para indicar o tipo de operação desejada:
 
 <script setup>
-import ApiCard from '../.vitepress/theme/components/ApiCard.vue'
 
 const methodsTable = [
   { key: 'GET', description: 'Consultar dados', color: 'blue' },

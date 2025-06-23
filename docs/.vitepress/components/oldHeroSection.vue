@@ -1,87 +1,8 @@
-<template>
-  <SpotlightBackground>
-    <div class="hero-container">
-      <div class="border-decorator border-decorator--left" aria-hidden="true">
-        <div class="gradient-pulse"></div>
-      </div>
-      <div class="border-decorator border-decorator--right" aria-hidden="true">
-        <div class="gradient-pulse" style="animation-delay: -1.5s; top: 40%"></div>
-      </div>
-      <div class="border-decorator border-decorator--bottom" aria-hidden="true">
-        <div class="gradient-pulse--horizontal"></div>
-      </div>
-
-      <main class="main-content">
-        <h1 class="headline" role="banner">
-          <span
-            v-for="(word, index) in headlineWords"
-            :key="`word-${index}`"
-            class="word-span"
-            :class="{ 'is-visible': animationStarted }"
-            :style="{ transitionDelay: `${index * animationDelay}ms` }"
-          >
-            {{ word }}
-          </span>
-        </h1>
-
-        <p
-          class="subtitle"
-          :class="{ 'is-visible': animationStarted }"
-          role="doc-subtitle"
-        >
-          {{ subtitle }}
-        </p>
-
-        <div class="buttons-container" :class="{ 'is-visible': animationStarted }">
-          <a
-            :href="primaryButtonLink"
-            class="button button--primary"
-            role="button"
-            :aria-label="primaryButtonLabel"
-          >
-            <span class="button__text">{{ primaryButtonText }}</span>
-            <span class="button__icon" aria-hidden="true">→</span>
-          </a>
-          <a
-            :href="secondaryButtonLink"
-            class="button button--secondary"
-            role="button"
-            :aria-label="secondaryButtonLabel"
-          >
-            <span class="button__text">{{ secondaryButtonText }}</span>
-          </a>
-        </div>
-
-        <div
-          class="image-preview"
-          :class="{ 'is-visible': animationStarted }"
-          role="img"
-          :aria-label="imageAltText"
-        >
-          <div class="image-container">
-            <img
-              :src="imageSrc"
-              :alt="imageAltText"
-              class="preview-image"
-              loading="lazy"
-              decoding="async"
-              @load="onImageLoad"
-              @error="onImageError"
-            />
-            <div v-if="isImageLoading" class="image-skeleton" aria-hidden="true"></div>
-          </div>
-        </div>
-      </main>
-
-    </div>
-  </SpotlightBackground>
-</template>
-
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue'
+import { withBase } from 'vitepress'
 import SpotlightBackground from './SpotlightBackground.vue'
 
-// Props
 interface Props {
   headline?: string
   subtitle?: string
@@ -106,51 +27,91 @@ const props = withDefaults(defineProps<Props>(), {
   animationDelay: 100
 })
 
-// Emits
-const emit = defineEmits<{
-  (e: 'imageLoaded'): void
-  (e: 'imageError', error: Event): void
-}>()
-
-// Reactive state
 const isImageLoading = ref(true)
 const animationStarted = ref(false)
 
-// Computed properties
-const headlineWords = computed(() => props.headline.trim().split(' ').filter(Boolean))
+const headlineWords = computed(() =>
+  props.headline.trim().split(' ').filter(Boolean)
+)
 
-const primaryButtonLabel = computed(() => `${props.primaryButtonText} - Acessar documentação da API`)
-const secondaryButtonLabel = computed(() => `${props.secondaryButtonText} - Obter suporte técnico`)
-
-// Event handlers
-const onImageLoad = () => {
+const onImageLoad = () => (isImageLoading.value = false)
+const onImageError = (e: Event) => {
   isImageLoading.value = false
-  emit('imageLoaded')
+  console.error('Falha ao carregar a imagem:', e)
 }
 
-const onImageError = (error: Event) => {
-  isImageLoading.value = false
-  emit('imageError', error)
-  console.error('Falha ao carregar a imagem:', error)
-}
-
-// Lifecycle
 onMounted(() => {
-  requestAnimationFrame(() => {
-    animationStarted.value = true
-  })
-})
-
-// Expose
-defineExpose({
-  resetAnimation: () => {
-    animationStarted.value = false
-    requestAnimationFrame(() => {
-      animationStarted.value = true
-    })
-  }
+  // dispara animação
+  requestAnimationFrame(() => (animationStarted.value = true))
+  // se a imagem já carregou antes da hidratação, remove skeleton
+  const img = document.querySelector('.preview-image') as HTMLImageElement | null
+  if (img?.complete) isImageLoading.value = false
 })
 </script>
+
+<template>
+  <SpotlightBackground>
+    <div class="hero-container">
+      <!-- decoradores omitidos para brevidade -->
+
+      <main class="main-content">
+        <!-- Headline -->
+        <h1 class="headline" role="banner">
+          <span
+            v-for="(word, idx) in headlineWords"
+            :key="idx"
+            class="word-span"
+            :class="{ 'is-visible': animationStarted }"
+            :style="{ transitionDelay: `${idx * animationDelay}ms` }"
+          >
+            {{ word }}
+          </span>
+        </h1>
+
+        <!-- Sub-título -->
+        <p class="subtitle" :class="{ 'is-visible': animationStarted }">
+          {{ subtitle }}
+        </p>
+
+        <!-- Botões -->
+        <div class="buttons-container" :class="{ 'is-visible': animationStarted }">
+          <a
+            :href="primaryButtonLink"
+            class="button button--primary"
+            :aria-label="`${primaryButtonText} - Acessar documentação da API`"
+          >
+            <span class="button__text">{{ primaryButtonText }}</span>
+            <span class="button__icon" aria-hidden="true">→</span>
+          </a>
+          <a
+            :href="secondaryButtonLink"
+            class="button button--secondary"
+            :aria-label="`${secondaryButtonText} - Obter suporte técnico`"
+          >
+            <span class="button__text">{{ secondaryButtonText }}</span>
+          </a>
+        </div>
+
+        <!-- Imagem -->
+        <div class="image-preview" :class="{ 'is-visible': animationStarted }">
+          <div class="image-container">
+            <img
+              class="preview-image"
+              :src="withBase(imageSrc)"
+              :alt="imageAltText"
+              loading="eager"
+              decoding="async"
+              @load="onImageLoad"
+              @error="onImageError"
+            />
+            <!-- overlay apenas enquanto carregando -->
+            <div v-if="isImageLoading" class="image-skeleton" aria-hidden="true" />
+          </div>
+        </div>
+      </main>
+    </div>
+  </SpotlightBackground>
+</template>
 
 <style scoped>
 /* CSS Variables for theming */
@@ -171,44 +132,7 @@ defineExpose({
   justify-content: center;
 }
 
-/* --- Decorative Borders --- */
-.border-decorator {
-  position: absolute;
-  background: var(--border-color);
-  z-index: 1;
-}
-.border-decorator--left,
-.border-decorator--right {
-  top: 0;
-  height: 100%;
-  width: 1px;
-}
-.border-decorator--left { left: 0; }
-.border-decorator--right { right: 0; }
-.border-decorator--bottom {
-  bottom: 0;
-  left: 0;
-  height: 1px;
-  width: 100%;
-}
-.gradient-pulse {
-  position: absolute;
-  height: 12rem;
-  width: 1px;
-  background: linear-gradient(to bottom, transparent, var(--primary-color), transparent);
-  top: 20%;
-  animation: pulse-gradient 3s ease-in-out infinite;
-}
-.gradient-pulse--horizontal {
-  position: absolute;
-  margin: 0 auto;
-  height: 1px;
-  width: 12rem;
-  left: 50%;
-  transform: translateX(-50%);
-  background: linear-gradient(to right, transparent, var(--primary-color), transparent);
-  animation: pulse-gradient 3s ease-in-out infinite 1s;
-}
+
 
 /* --- Main Content --- */
 .main-content {
@@ -284,7 +208,7 @@ defineExpose({
   font-weight: 500;
   font-size: 1.05rem;
   text-decoration: none;
-  border-radius: 1.7rem; /* ultra rounded */
+  border-radius: 1.7rem;
   transition: all 0.21s cubic-bezier(.42,0,.58,1);
 }
 .button--primary {
@@ -318,7 +242,6 @@ defineExpose({
 }
 
 /* --- Image Preview --- */
-/* AJUSTE: Removida a "moldura" externa (padding, border, background, etc.) */
 .image-preview {
   margin-top: 5rem;
   opacity: 0;
@@ -331,8 +254,8 @@ defineExpose({
 .image-container {
   position: relative;
   overflow: visible;
-  border-radius: 0.75rem; /* Mantém os cantos arredondados na imagem */
-  box-shadow: var(--shadow-soft); /* Adiciona uma sombra para elevação */
+  border-radius: 0.75rem;
+  box-shadow: var(--shadow-soft);
 }
 
 .preview-image {
@@ -408,4 +331,5 @@ defineExpose({
     border: 2px solid currentColor;
   }
 }
+
 </style>

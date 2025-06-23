@@ -8,7 +8,6 @@ description: 'Códigos de status HTTP, formatos de resposta e tratamento de erro
 A API retorna sempre um status HTTP e, geralmente, um objeto JSON com detalhes específicos.
 
 <script setup>
-import ApiCard from '../.vitepress/theme/components/ApiCard.vue'
 
 const statusTable = [
   {

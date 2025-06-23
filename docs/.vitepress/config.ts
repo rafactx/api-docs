@@ -21,10 +21,8 @@ const sharedFooter = {
 }
 
 export default defineConfig({
-  base: '/',
   title: 'Involves Stage API Reference',
   description: 'Documentação Oficial do Involves Stage',
-  lang: 'pt',
   cleanUrls: true,
   lastUpdated: false,
 
@@ -34,14 +32,14 @@ export default defineConfig({
     ['link', { rel: 'icon', href: '/favicon.svg' }],
   ],
 
-  // Configurações para melhor compatibilidade com Vercel
+  // Compatibilidade Vercel
   ignoreDeadLinks: true,
 
+
   locales: {
-    pt: {
+    root: {
       label: 'Português (Brasil)',
       lang: 'pt',
-      link: '/pt/',
       themeConfig: {
         siteTitle: false,
         logo: sharedLogo,

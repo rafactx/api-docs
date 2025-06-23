@@ -13,8 +13,9 @@
   },
   "scripts": {
     "dev": "vitepress dev docs",
-    "docs:build": "vitepress build docs",
-    "docs:preview": "vitepress preview docs"
+    "build": "vitepress build docs",
+    "clean": "rm -rf docs/.vitepress/dist",
+    "preview": "vitepress preview docs"
   },
   "dependencies": {
     "@vueuse/core": "^13.4.0",

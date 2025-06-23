@@ -117,7 +117,6 @@ response = requests.get('https://exemplo.involves.com/webservices/api/v3', heade
 ### Headers Obrigatórios
 
 <script setup>
-import ApiCard from '../.vitepress/theme/components/ApiCard.vue'
 
 const headersTable = [
   {
