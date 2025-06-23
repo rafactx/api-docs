@@ -1,17 +1,10 @@
 {
   "version": 2,
-  "buildCommand": "pnpm install && pnpm docs:build",
+  "buildCommand": "pnpm docs:build",
   "installCommand": "corepack enable && corepack prepare pnpm@8.15.5 --activate && pnpm install",
   "outputDirectory": "docs/.vitepress/dist",
-  "ignoreCommand": "git diff --quiet HEAD^ HEAD",
   "cleanUrls": true,
   "trailingSlash": false,
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "/docs/$1"
-    }
-  ],
   "rewrites": [
     {
       "source": "/",
