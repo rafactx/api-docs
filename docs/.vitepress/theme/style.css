@@ -1,139 +1,373 @@
-/**
- * Customize default theme styling by overriding CSS variables:
- * https://github.com/vuejs/vitepress/blob/main/src/client/theme-default/styles/vars.css
- */
+@import './theme.css'; /* ou './theme-completo.css' */
 
-/**
- * Colors
- *
- * Each colors have exact same color scale system with 3 levels of solid
- * colors with different brightness, and 1 soft color.
- *
- * - `XXX-1`: The most solid color used mainly for colored text. It must
- *   satisfy the contrast ratio against when used on top of `XXX-soft`.
- *
- * - `XXX-2`: The color used mainly for hover state of the button.
- *
- * - `XXX-3`: The color for solid background, such as bg color of the button.
- *   It must satisfy the contrast ratio with pure white (#ffffff) text on
- *   top of it.
- *
- * - `XXX-soft`: The color used for subtle background such as custom container
- *   or badges. It must satisfy the contrast ratio when putting `XXX-1` colors
- *   on top of it.
- *
- *   The soft color must be semi transparent alpha channel. This is crucial
- *   because it allows adding multiple "soft" colors on top of each other
- *   to create a accent, such as when having inline code block inside
- *   custom containers.
- *
- * - `default`: The color used purely for subtle indication without any
- *   special meanings attached to it such as bg color for menu hover state.
- *
- * - `brand`: Used for primary brand colors, such as link text, button with
- *   brand theme, etc.
- *
- * - `tip`: Used to indicate useful information. The default theme uses the
- *   brand color for this by default.
- *
- * - `warning`: Used to indicate warning to the users. Used in custom
- *   container, badges, etc.
- *
- * - `danger`: Used to show error, or dangerous message to the users. Used
- *   in custom container, badges, etc.
- * -------------------------------------------------------------------------- */
-
+/* Fontes do brand system */
 :root {
-  --vp-c-default-1: var(--vp-c-gray-1);
-  --vp-c-default-2: var(--vp-c-gray-2);
-  --vp-c-default-3: var(--vp-c-gray-3);
-  --vp-c-default-soft: var(--vp-c-gray-soft);
-
-  --vp-c-brand-1: var(--vp-c-indigo-1);
-  --vp-c-brand-2: var(--vp-c-indigo-2);
-  --vp-c-brand-3: var(--vp-c-indigo-3);
-  --vp-c-brand-soft: var(--vp-c-indigo-soft);
-
-  --vp-c-tip-1: var(--vp-c-brand-1);
-  --vp-c-tip-2: var(--vp-c-brand-2);
-  --vp-c-tip-3: var(--vp-c-brand-3);
-  --vp-c-tip-soft: var(--vp-c-brand-soft);
-
-  --vp-c-warning-1: var(--vp-c-yellow-1);
-  --vp-c-warning-2: var(--vp-c-yellow-2);
-  --vp-c-warning-3: var(--vp-c-yellow-3);
-  --vp-c-warning-soft: var(--vp-c-yellow-soft);
-
-  --vp-c-danger-1: var(--vp-c-red-1);
-  --vp-c-danger-2: var(--vp-c-red-2);
-  --vp-c-danger-3: var(--vp-c-red-3);
-  --vp-c-danger-soft: var(--vp-c-red-soft);
+  --vp-font-family-body: 'Poppins', sans-serif;
+  --vp-font-family-heading: 'Hepta Slab', serif;
+  --vp-font-family-highlight: 'Zilla Slab Highlight', cursive;
 }
 
-/**
- * Component: Button
- * -------------------------------------------------------------------------- */
-
-:root {
-  --vp-button-brand-border: transparent;
-  --vp-button-brand-text: var(--vp-c-white);
-  --vp-button-brand-bg: var(--vp-c-brand-3);
-  --vp-button-brand-hover-border: transparent;
-  --vp-button-brand-hover-text: var(--vp-c-white);
-  --vp-button-brand-hover-bg: var(--vp-c-brand-2);
-  --vp-button-brand-active-border: transparent;
-  --vp-button-brand-active-text: var(--vp-c-white);
-  --vp-button-brand-active-bg: var(--vp-c-brand-1);
+body {
+  font-family: var(--vp-font-family-body);
 }
 
-/**
- * Component: Home
- * -------------------------------------------------------------------------- */
-
-:root {
-  --vp-home-hero-name-color: transparent;
-  --vp-home-hero-name-background: -webkit-linear-gradient(
-    120deg,
-    #bd34fe 30%,
-    #41d1ff
-  );
-
-  --vp-home-hero-image-background-image: linear-gradient(
-    -45deg,
-    #bd34fe 50%,
-    #47caff 50%
-  );
-  --vp-home-hero-image-filter: blur(44px);
+h1, h2, h3, h4, h5, h6,
+.VPDoc h1, .VPDoc h2, .VPDoc h3 {
+  font-family: var(--vp-font-family-heading);
 }
 
-@media (min-width: 640px) {
-  :root {
-    --vp-home-hero-image-filter: blur(56px);
+.subtitle {
+  font-size: 1.25rem;
+  line-height: 1.6;
+  color: var(--vp-c-text-2);
+  white-space: pre-line;
+  margin-top: var(--vp-space-md);
+}
+.highlight,
+.hero .word-span.highlight,
+.badge-highlight {
+  font-family: var(--vp-font-family-highlight);
+  font-weight: 400;
+  font-size: 1.25rem;
+  letter-spacing: 0.5px;
+}
+
+/* Transições suaves e otimizadas para mudança de tema */
+*,
+*::before,
+*::after {
+  transition:
+    background-color var(--vp-transition-timing-base) var(--vp-ease-out),
+    color var(--vp-transition-timing-base) var(--vp-ease-out),
+    border-color var(--vp-transition-timing-base) var(--vp-ease-out),
+    box-shadow var(--vp-transition-timing-base) var(--vp-ease-out),
+    opacity var(--vp-transition-timing-base) var(--vp-ease-out);
+}
+
+/* Otimizações de performance */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
 
-@media (min-width: 960px) {
+/* Melhorias gerais do layout */
+.VPDoc .content {
+  max-width: 100%;
+}
+
+.VPDoc .container {
+  max-width: 1280px;
+}
+
+/* Estilos aprimorados para o componente ApiCard */
+.api-card {
+  margin: var(--vp-space-lg) 0;
+  border-radius: var(--vp-radius-lg);
+  border: 1px solid var(--vp-c-border);
+  background: var(--vp-c-bg-soft);
+  padding: var(--vp-space-lg);
+  box-shadow: var(--vp-shadow-1);
+  transition:
+    box-shadow var(--vp-transition-timing-base) var(--vp-ease-out),
+    transform var(--vp-transition-timing-base) var(--vp-ease-out);
+}
+
+.api-card:hover {
+  box-shadow: var(--vp-shadow-2);
+  transform: translateY(-1px);
+}
+
+.api-card-item {
+  display: flex;
+  align-items: center;
+  gap: var(--vp-space-md);
+  padding: var(--vp-space-sm) 0;
+  border-bottom: 1px solid var(--vp-c-divider);
+}
+
+.api-card-item:last-child {
+  border-bottom: none;
+}
+
+.api-card-key {
+  min-width: 120px;
+  font-weight: 600;
+  color: var(--vp-c-text-1);
+  font-size: var(--vp-font-size-sm);
+}
+
+.api-card-value {
+  flex: 1;
+  color: var(--vp-c-text-2);
+  font-size: var(--vp-font-size-sm);
+  font-family: var(--vp-font-family-mono);
+}
+
+/* Melhorias para o botão de tema */
+.VPNavBarAppearance {
+  transition:
+    opacity var(--vp-transition-timing-base) var(--vp-ease-out),
+    transform var(--vp-transition-timing-fast) var(--vp-ease-out);
+  border-radius: var(--vp-radius-md);
+}
+
+.VPNavBarAppearance:hover {
+  opacity: 0.8;
+  transform: scale(1.05);
+}
+
+.VPNavBarAppearance:active {
+  transform: scale(0.95);
+}
+
+/* Estilos para código inline */
+.vp-code {
+  background: var(--vp-c-code-bg);
+  color: var(--vp-c-text-code);
+  border-radius: var(--vp-radius-sm);
+  padding: 0.2em 0.4em;
+  font-size: 0.9em;
+  border: 1px solid var(--vp-c-border);
+}
+
+/* Melhorias para tabelas */
+.vp-table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: var(--vp-space-lg) 0;
+  border-radius: var(--vp-radius-lg);
+  overflow: hidden;
+  box-shadow: var(--vp-shadow-1);
+}
+
+.vp-table th,
+.vp-table td {
+  padding: var(--vp-space-md);
+  text-align: left;
+  border-bottom: 1px solid var(--vp-c-divider);
+}
+
+.vp-table th {
+  background: var(--vp-c-bg-soft);
+  font-weight: 600;
+  color: var(--vp-c-text-1);
+}
+
+.vp-table tr:hover {
+  background: var(--vp-c-bg-soft);
+}
+
+/* Estilos para alertas/callouts */
+.vp-alert {
+  margin: var(--vp-space-lg) 0;
+  padding: var(--vp-space-lg);
+  border-radius: var(--vp-radius-lg);
+  border-left: 4px solid var(--vp-hero-primary-color);
+  background: var(--vp-c-brand-soft);
+  backdrop-filter: var(--vp-backdrop-blur-sm);
+}
+
+.vp-alert.info {
+  border-left-color: var(--vp-hero-primary-color);
+  background: rgba(var(--vp-hero-primary-rgb), 0.1);
+}
+
+.vp-alert.success {
+  border-left-color: var(--vp-hero-success-color);
+  background: rgba(52, 199, 89, 0.1);
+}
+
+.vp-alert.warning {
+  border-left-color: var(--vp-hero-warning-color);
+  background: rgba(255, 149, 0, 0.1);
+}
+
+.vp-alert.error {
+  border-left-color: var(--vp-hero-error-color);
+  background: rgba(255, 59, 48, 0.1);
+}
+
+/* Scrollbar personalizado */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--vp-c-bg-soft);
+  border-radius: var(--vp-radius-sm);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--vp-c-text-3);
+  border-radius: var(--vp-radius-sm);
+  transition: background var(--vp-transition-timing-base) var(--vp-ease-out);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--vp-c-text-2);
+}
+
+/* Seleção de texto personalizada */
+::selection {
+  background: rgba(var(--vp-hero-primary-rgb), 0.3);
+  color: var(--vp-c-text-1);
+}
+
+::-moz-selection {
+  background: rgba(var(--vp-hero-primary-rgb), 0.3);
+  color: var(--vp-c-text-1);
+}
+
+/* Melhorias para formulários */
+input,
+textarea,
+select {
+  background: var(--vp-c-bg);
+  border: 1px solid var(--vp-c-border);
+  border-radius: var(--vp-radius-md);
+  padding: var(--vp-space-sm) var(--vp-space-md);
+  color: var(--vp-c-text-1);
+  font-size: var(--vp-font-size-base);
+  transition:
+    border-color var(--vp-transition-timing-base) var(--vp-ease-out),
+    box-shadow var(--vp-transition-timing-base) var(--vp-ease-out);
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: var(--vp-hero-primary-color);
+  box-shadow: 0 0 0 3px rgba(var(--vp-hero-primary-rgb), 0.1);
+}
+
+/* Botões globais */
+.vp-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--vp-space-sm);
+  padding: var(--vp-space-sm) var(--vp-space-lg);
+  border: 1px solid var(--vp-c-border);
+  border-radius: var(--vp-radius-md);
+  background: var(--vp-c-bg);
+  color: var(--vp-c-text-1);
+  font-weight: 500;
+  font-size: var(--vp-font-size-sm);
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    transform var(--vp-transition-timing-base) var(--vp-ease-out),
+    box-shadow var(--vp-transition-timing-base) var(--vp-ease-out),
+    background-color var(--vp-transition-timing-base) var(--vp-ease-out);
+}
+
+.vp-button:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--vp-shadow-2);
+}
+
+.vp-button:active {
+  transform: translateY(0);
+}
+
+.vp-button.primary {
+  background: var(--vp-hero-primary-color);
+  color: white;
+  border-color: var(--vp-hero-primary-color);
+}
+
+.vp-button.primary:hover {
+  background: var(--vp-c-brand-dark);
+  border-color: var(--vp-c-brand-dark);
+}
+
+/* Responsividade aprimorada */
+@media (max-width: 768px) {
   :root {
-    --vp-home-hero-image-filter: blur(68px);
+    --vp-space-lg: 1rem;
+    --vp-space-xl: 1.5rem;
+    --vp-space-2xl: 2rem;
+  }
+
+  .api-card-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--vp-space-xs);
+  }
+
+  .api-card-key {
+    min-width: auto;
+    font-size: var(--vp-font-size-xs);
+  }
+
+  .api-card-value {
+    font-size: var(--vp-font-size-xs);
   }
 }
 
-/**
- * Component: Custom Block
- * -------------------------------------------------------------------------- */
+@media (max-width: 640px) {
+  .vp-table {
+    font-size: var(--vp-font-size-sm);
+  }
 
-:root {
-  --vp-custom-block-tip-border: transparent;
-  --vp-custom-block-tip-text: var(--vp-c-text-1);
-  --vp-custom-block-tip-bg: var(--vp-c-brand-soft);
-  --vp-custom-block-tip-code-bg: var(--vp-c-brand-soft);
+  .vp-table th,
+  .vp-table td {
+    padding: var(--vp-space-sm);
+  }
 }
 
-/**
- * Component: Algolia
- * -------------------------------------------------------------------------- */
+/* Melhorias para modo de alto contraste */
+@media (prefers-contrast: high) {
+  :root {
+    --vp-c-border: #000000;
+    --vp-c-divider: #000000;
+  }
 
-.DocSearch {
-  --docsearch-primary-color: var(--vp-c-brand-1) !important;
+  .dark {
+    --vp-c-border: #ffffff;
+    --vp-c-divider: #ffffff;
+  }
+
+  .vp-button,
+  .api-card,
+  input,
+  textarea,
+  select {
+    border-width: 2px;
+  }
 }
 
+/* Performance - will-change para elementos animados */
+.VPNavBarAppearance,
+.api-card,
+.vp-button,
+input:focus,
+textarea:focus,
+select:focus {
+  will-change: transform, box-shadow;
+}
+
+/* Print styles */
+@media print {
+  * {
+    background: white !important;
+    color: black !important;
+    box-shadow: none !important;
+  }
+
+  .api-card {
+    border: 1px solid #ccc !important;
+  }
+
+  .vp-button {
+    border: 1px solid #ccc !important;
+  }
+}
