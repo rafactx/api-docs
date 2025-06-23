@@ -1,6 +1,8 @@
+import '@scalar/api-reference/style.css'
 import { MotionPlugin } from '@vueuse/motion'
 import { Theme } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
+
 
 // Componentes personalizados
 import ApiCard from '../components/ApiCard.vue'
