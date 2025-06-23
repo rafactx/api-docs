@@ -1,45 +1,34 @@
-# Node.js
+# Node
 node_modules/
-pnpm-lock.yaml
-
-# VitePress build
-docs/.vitepress/dist/
-dist/
-.cache/
-.vitepress/cache/
-temp/
-
-# Sistema
-.DS_Store
-**/.DS_Store
-Thumbs.db
+pnpm-debug.log*
 
 # Logs
 *.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-pnpm-debug.log*
+
+# VitePress build & cache
+docs/.vitepress/dist/
+docs/.vitepress/cache/
+dist/
+.vitepress/cache/
+.cache/
+temp/
+tmp/
+cache/
+
+# Sistema
+.DS_Store
+**/.DS_Store
+Thumbs.db
+
+# IDEs e editores
+.vscode/
+.idea/
 
 # Vercel
 .vercel/
 
-# IDEs/Editor
-.vscode/
-.idea/
-
-# Outras ferramentas
+# Variáveis de ambiente
 .env*
-
-# Cache e build do VitePress
-docs/.vitepress/cache/
-docs/.vitepress/dist/
-
-# Sistema
-.DS_Store
-docs/.DS_Store
-docs/.vitepress/.DS_Store
-
-# Outros
-tmp/
-cache/
