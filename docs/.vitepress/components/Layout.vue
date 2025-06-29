@@ -4,6 +4,8 @@ import DefaultTheme from 'vitepress/theme'
 import HeroSection from '../components/oldHeroSection.vue'
 import SpotlightBackground from '../components/SpotlightBackground.vue'
 import { watchEffect } from 'vue'
+import { Analytics } from '@vercel/analytics/vue'
+import { SpeedInsights } from '@vercel/speed-insights/vue';
 
 const route = useRoute()
 const { lang, page } = useData()
@@ -30,6 +32,8 @@ watchEffect(() => {
 </script>
 
 <template>
+  <Analytics />
+  <SpeedInsights />
   <DefaultTheme.Layout>
     <template #home-hero-before>
       <SpotlightBackground v-show="isHome">
