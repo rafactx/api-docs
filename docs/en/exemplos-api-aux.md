@@ -1,11 +1,11 @@
 ---
-title: Exemplos & APIs Auxiliares
-description: Exemplos práticos de uso da API do Involves Stage em diferentes linguagens de programação.
+title: Examples & Auxiliary APIs
+description: Practical examples of using the Involves Stage API in different programming languages.
 ---
 
-## 💡 Exemplos práticos
+## 💡 Practical examples
 
-Aqui estão exemplos de como fazer requisições para a API do Involves Stage usando diferentes linguagens de programação:
+Here are examples of how to make requests to the Involves Stage API using different programming languages:
 
 ::: code-group
 
@@ -68,26 +68,26 @@ echo $response;
 
 :::
 
-## 📸 API de Fotos de Pesquisa
+## 📸 Research Photos API
 
-A extração de fotos via API está disponível apenas mediante liberação específica.
+Photo extraction via API is only available through specific release.
 
-Para acessar os endpoints de fotos de pesquisa, é necessário solicitar autorização ao nosso time de Suporte.
+To access research photo endpoints, it's necessary to request authorization from our Support team.
 
-::: tip Informação importante
-Este recurso não está disponível publicamente na documentação por padrão.
+::: tip Important information
+This feature is not publicly available in the documentation by default.
 
-Para solicitar acesso, [abra um ticket com o Suporte](https://help.involves.com/hc/pt-br/requests/new){target="_blank" rel="noopener"} informando o ambiente desejado para validação.
+To request access, [open a ticket with Support](https://help.involves.com/hc/pt-br/requests/new){target="_blank" rel="noopener"} informing the desired environment for validation.
 :::
 
-## 🔧 Exemplos de Autenticação
+## 🔧 Authentication Examples
 
-### Autenticação Básica
+### Basic Authentication
 
 ::: code-group
 
 ```javascript [JavaScript]
-// Usando fetch nativo
+// Using native fetch
 const credentials = btoa('usuario:senha');
 const response = await fetch('https://exemplo.involves.com/webservices/api/v3', {
   headers: {
@@ -114,71 +114,71 @@ response = requests.get('https://exemplo.involves.com/webservices/api/v3', heade
 
 :::
 
-### Headers Obrigatórios
+### Required Headers
 
 <script setup>
 
 const headersTable = [
   {
     key: 'Authorization',
-    description: '<code>Basic &lt;token&gt;</code> — Token de autenticação em Base64',
+    description: '<code>Basic &lt;token&gt;</code> — Authentication token in Base64',
     color: 'blue'
   },
   {
     key: 'X-AGILE-CLIENT',
-    description: '<code>EXTERNAL_APP</code> — Identificador do cliente',
+    description: '<code>EXTERNAL_APP</code> — Client identifier',
     color: 'purple'
   },
   {
     key: 'Accept-Version',
-    description: '<code>2020-02-26</code> — Versão da API',
+    description: '<code>2020-02-26</code> — API version',
     color: 'red'
   }
 ]
 </script>
 
-### Todos os endpoints da API requerem os seguintes headers
+### All API endpoints require the following headers
 
 <ApiCard
   title="request.headers"
   :items="headersTable"
 />
 
-::: warning Atenção
-Nunca compartilhe suas credenciais de acesso ou as inclua em código que será versionado.
-Sempre use variáveis de ambiente para armazenar informações sensíveis.
+::: warning Attention
+Never share your access credentials or include them in code that will be versioned.
+Always use environment variables to store sensitive information.
 :::
 
-## 📊 Exemplos de Resposta
+## 📊 Response Examples
 
-### Resposta de Sucesso
+### Success Response
 
 ```json
 {
   "success": true,
   "data": {
     "id": 123,
-    "name": "Exemplo de Dados",
+    "name": "Example data",
     "created_at": "2024-01-15T10:30:00Z"
   },
-  "message": "Operação realizada com sucesso"
+  "message": "Operation completed successfully"
 }
 ```
 
-### Resposta de Erro
+### Error Response
 
 ```json
 {
   "success": false,
   "error": {
     "code": "AUTHENTICATION_FAILED",
-    "message": "Credenciais inválidas",
-    "details": "Usuário ou senha incorretos"
+    "message": "Invalid credentials",
+    "details": "Incorrect username or password"
   }
 }
 ```
 
-::: tip Dica
-Sempre verifique o campo `success` na resposta antes de processar os dados.
-Em caso de erro, o campo `error` conterá informações detalhadas sobre o problema.
+::: tip Tip
+Always check the `success` field in the response before processing the data.
+In case of error, the `error` field will contain detailed information about the problem.
 :::

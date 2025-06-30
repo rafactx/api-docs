@@ -1,48 +1,48 @@
 ---
-title: Limites e boas práticas
+title: Limites et bonnes pratiques
 ---
 
-## 🚦 Limites e boas práticas
+## 🚦 Limites et bonnes pratiques
 
-A API não impõe um limite rígido de requisições por minuto, mas implementa mecanismos automáticos de proteção contra uso abusivo.
+L'API n'impose pas de limite strict de requêtes par minute, mais implémente des mécanismes automatiques de protection contre l'usage abusif.
 
-Para garantir estabilidade e performance, recomendamos as seguintes práticas:
+Pour garantir stabilité et performance, nous recommandons les pratiques suivantes :
 
-- Evite múltiplas requisições simultâneas desnecessárias.
+- Évitez les requêtes simultanées multiples inutiles.
 
-- Mantenha um volume médio de até **60 requisições por minuto por ambiente**.
+- Maintenez un volume moyen de jusqu'à **60 requêtes par minute par environnement**.
 
-- Sempre implemente controle de retry com backoff exponencial em integrações contínuas.
+- Implémentez toujours un contrôle de retry avec backoff exponentiel dans les intégrations continues.
 
-::: tip Dica
-Implemente cache para dados que não mudam frequentemente e monitore o uso de sua integração.
+::: tip Conseil
+Implémentez un cache pour les données qui ne changent pas fréquemment et surveillez l'utilisation de votre intégration.
 :::
 
-## 💰 Cobrança
+## 💰 Facturation
 
-Atualmente, a API é totalmente gratuita.
-Caso isso mude futuramente, você será informado com antecedência.
+Actuellement, l'API est entièrement gratuite.
+Si cela change à l'avenir, vous en serez informé à l'avance.
 
-## ⚙️ Métodos HTTP usados
+## ⚙️ Méthodes HTTP utilisées
 
-A API segue os métodos HTTP padrão para indicar o tipo de operação desejada:
+L'API suit les méthodes HTTP standard pour indiquer le type d'opération souhaitée :
 
 <script setup>
 
 const methodsTable = [
-  { key: 'GET', description: 'Consultar dados', color: 'blue' },
-  { key: 'POST', description: 'Criar novos dados ou executar ações', color: 'green' },
-  { key: 'PUT', description: 'Atualizar integralmente dados existentes', color: 'purple' },
-  { key: 'PATCH', description: 'Atualizar parcialmente dados existentes', color: 'yellow' },
-  { key: 'DELETE', description: 'Excluir dados existentes', color: 'red' }
+  { key: 'GET', description: 'Consulter des données', color: 'blue' },
+  { key: 'POST', description: 'Créer de nouvelles données ou exécuter des actions', color: 'green' },
+  { key: 'PUT', description: 'Mettre à jour intégralement des données existantes', color: 'purple' },
+  { key: 'PATCH', description: 'Mettre à jour partiellement des données existantes', color: 'yellow' },
+  { key: 'DELETE', description: 'Supprimer des données existantes', color: 'red' }
 ]
 </script>
 
 <ApiCard
-  title="Métodos HTTP"
+  title="Méthodes HTTP"
   :items="methodsTable"
 />
 
-::: tip Referência
-Para mais detalhes sobre os métodos HTTP, consulte a [RFC 7231 - HTTP/1.1 Semantics and Content](https://datatracker.ietf.org/doc/html/rfc7231){target="_blank" rel="noopener"}.
+::: tip Référence
+Pour plus de détails sur les méthodes HTTP, consultez la [RFC 7231 - HTTP/1.1 Semantics and Content](https://datatracker.ietf.org/doc/html/rfc7231){target="_blank" rel="noopener"}.
 :::

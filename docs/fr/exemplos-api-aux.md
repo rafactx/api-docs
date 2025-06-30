@@ -1,11 +1,11 @@
 ---
-title: Exemplos & APIs Auxiliares
-description: Exemplos práticos de uso da API do Involves Stage em diferentes linguagens de programação.
+title: Exemples & APIs Auxiliaires
+description: Exemples pratiques d'utilisation de l'API d'Involves Stage dans différents langages de programmation.
 ---
 
-## 💡 Exemplos práticos
+## 💡 Exemples pratiques
 
-Aqui estão exemplos de como fazer requisições para a API do Involves Stage usando diferentes linguagens de programação:
+Voici des exemples de comment faire des requêtes vers l'API d'Involves Stage en utilisant différents langages de programmation :
 
 ::: code-group
 
@@ -68,26 +68,26 @@ echo $response;
 
 :::
 
-## 📸 API de Fotos de Pesquisa
+## 📸 API de Photos de Recherche
 
-A extração de fotos via API está disponível apenas mediante liberação específica.
+L'extraction de photos via API n'est disponible que sur autorisation spécifique.
 
-Para acessar os endpoints de fotos de pesquisa, é necessário solicitar autorização ao nosso time de Suporte.
+Pour accéder aux endpoints de photos de recherche, il est nécessaire de demander une autorisation à notre équipe de Support.
 
-::: tip Informação importante
-Este recurso não está disponível publicamente na documentação por padrão.
+::: tip Information importante
+Cette fonctionnalité n'est pas disponible publiquement dans la documentation par défaut.
 
-Para solicitar acesso, [abra um ticket com o Suporte](https://help.involves.com/hc/pt-br/requests/new){target="_blank" rel="noopener"} informando o ambiente desejado para validação.
+Pour demander l'accès, [ouvrez un ticket avec le Support](https://help.involves.com/hc/pt-br/requests/new){target="_blank" rel="noopener"} en indiquant l'environnement souhaité pour validation.
 :::
 
-## 🔧 Exemplos de Autenticação
+## 🔧 Exemples d'Authentification
 
-### Autenticação Básica
+### Authentification Basique
 
 ::: code-group
 
 ```javascript [JavaScript]
-// Usando fetch nativo
+// Utilisant fetch natif
 const credentials = btoa('usuario:senha');
 const response = await fetch('https://exemplo.involves.com/webservices/api/v3', {
   headers: {
@@ -114,71 +114,71 @@ response = requests.get('https://exemplo.involves.com/webservices/api/v3', heade
 
 :::
 
-### Headers Obrigatórios
+### En-têtes Obligatoires
 
 <script setup>
 
 const headersTable = [
   {
     key: 'Authorization',
-    description: '<code>Basic &lt;token&gt;</code> — Token de autenticação em Base64',
+    description: '<code>Basic &lt;token&gt;</code> — Token d\'authentification en Base64',
     color: 'blue'
   },
   {
     key: 'X-AGILE-CLIENT',
-    description: '<code>EXTERNAL_APP</code> — Identificador do cliente',
+    description: '<code>EXTERNAL_APP</code> — Identifiant du client',
     color: 'purple'
   },
   {
     key: 'Accept-Version',
-    description: '<code>2020-02-26</code> — Versão da API',
+    description: '<code>2020-02-26</code> — Version de l\'API',
     color: 'red'
   }
 ]
 </script>
 
-### Todos os endpoints da API requerem os seguintes headers
+### Tous les endpoints de l'API requièrent les en-têtes suivants
 
 <ApiCard
   title="request.headers"
   :items="headersTable"
 />
 
-::: warning Atenção
-Nunca compartilhe suas credenciais de acesso ou as inclua em código que será versionado.
-Sempre use variáveis de ambiente para armazenar informações sensíveis.
+::: warning Attention
+Ne partagez jamais vos identifiants d'accès ou ne les incluez pas dans du code qui sera versionné.
+Utilisez toujours des variables d'environnement pour stocker les informations sensibles.
 :::
 
-## 📊 Exemplos de Resposta
+## 📊 Exemples de Réponse
 
-### Resposta de Sucesso
+### Réponse de Succès
 
 ```json
 {
   "success": true,
   "data": {
     "id": 123,
-    "name": "Exemplo de Dados",
+    "name": "Exemple de données",
     "created_at": "2024-01-15T10:30:00Z"
   },
-  "message": "Operação realizada com sucesso"
+  "message": "Opération réalisée avec succès"
 }
 ```
 
-### Resposta de Erro
+### Réponse d'Erreur
 
 ```json
 {
   "success": false,
   "error": {
     "code": "AUTHENTICATION_FAILED",
-    "message": "Credenciais inválidas",
-    "details": "Usuário ou senha incorretos"
+    "message": "Identifiants invalides",
+    "details": "Nom d'utilisateur ou mot de passe incorrects"
   }
 }
 ```
 
-::: tip Dica
-Sempre verifique o campo `success` na resposta antes de processar os dados.
-Em caso de erro, o campo `error` conterá informações detalhadas sobre o problema.
+::: tip Conseil
+Vérifiez toujours le champ `success` dans la réponse avant de traiter les données.
+En cas d'erreur, le champ `error` contiendra des informations détaillées sur le problème.
 :::

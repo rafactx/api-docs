@@ -1,28 +1,27 @@
 ---
-
 title: Overview
 description: Best practices for securely connecting to the Involves Stage API.
-------------------------------------------------------------------------------
+---
 
 ## 🚀 Introduction
 
-The **Involves Stage** API allows you to easily integrate external systems, automating processes and simplifying operations.
-Developed following REST principles, our API is intuitive, easy to use, and fully compatible with standard HTTP clients, requiring no special development.
+The **Involves Stage** API allows you to easily integrate external systems, automating processes and simplifying your operations.
+Developed following REST principles, our API is intuitive, easy to use, and fully compatible with common HTTP clients, with no need for special development.
 
 ---
 
 The base URL for all requests is:
 
-\::: code-group
+::: code-group
 
 ```bash [Base URL]
 https://exemplo.involves.com/webservices/api/v3
 ```
 
-```javascript [Basic Example]
+```javascript [Basic example]
 const baseUrl = 'https://exemplo.involves.com/webservices/api/v3';
 const headers = {
-  'Authorization': 'Basic ' + btoa('user:password'),
+  'Authorization': 'Basic ' + btoa('usuario:senha'),
   'X-AGILE-CLIENT': 'EXTERNAL_APP',
   'Accept-Version': '2020-02-26'
 };
@@ -32,12 +31,12 @@ fetch(baseUrl, { headers })
   .then(data => console.log(data));
 ```
 
-```python [Basic Example]
+```python [Basic example]
 import requests
 
 base_url = 'https://exemplo.involves.com/webservices/api/v3'
 headers = {
-    'Authorization': 'Basic ' + base64.b64encode('user:password'.encode()).decode(),
+    'Authorization': 'Basic ' + base64.b64encode('usuario:senha'.encode()).decode(),
     'X-AGILE-CLIENT': 'EXTERNAL_APP',
     'Accept-Version': '2020-02-26'
 }
@@ -47,18 +46,18 @@ data = response.json()
 print(data)
 ```
 
-\:::
+:::
 
-\::: tip Tip
-Never run tests directly in the production environment.
+::: tip Tip
+Never test directly in the production environment.
 
-Create a dedicated sandbox environment with test-specific users.
+Create a specific environment (sandbox) with exclusive users for testing.
 
-If you need help setting this up, [open a support ticket](https://help.involves.com/hc/en-us/requests/new){target="\_blank" rel="noopener"}.
-\:::
+If you need help setting up, [open a ticket with Support](https://help.involves.com/hc/pt-br/requests/new){target="_blank" rel="noopener"}.
+:::
 
 ## 📚 About this documentation
 
 This documentation is kept in sync with the latest version of the Involves Stage API.<br />
-However, small differences may occur if your instance is running an earlier version.
-Whenever possible, check the version header (`Accept-Version`) or contact support if you have any questions.
+However, small differences may occur if your instance is on an earlier version.
+Whenever possible, check the version header (Accept-Version) or consult support if in doubt.

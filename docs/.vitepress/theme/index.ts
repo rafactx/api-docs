@@ -10,6 +10,7 @@ import HeroSection from '../components/oldHeroSection.vue'
 import ScalarApi from '../components/ScalarApi.vue'
 
 // Estilos globais
+import './api-docs-responsive.css'
 import './fonts.css'
 import './sidebar.css'
 import './style.css'

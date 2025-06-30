@@ -1,11 +1,11 @@
 ---
-title: Exemplos & APIs Auxiliares
-description: Exemplos práticos de uso da API do Involves Stage em diferentes linguagens de programação.
+title: Ejemplos & APIs Auxiliares
+description: Ejemplos prácticos de uso de la API de Involves Stage en diferentes lenguajes de programación.
 ---
 
-## 💡 Exemplos práticos
+## 💡 Ejemplos prácticos
 
-Aqui estão exemplos de como fazer requisições para a API do Involves Stage usando diferentes linguagens de programação:
+Aquí tienes ejemplos de cómo hacer peticiones a la API de Involves Stage usando diferentes lenguajes de programación:
 
 ::: code-group
 
@@ -68,21 +68,21 @@ echo $response;
 
 :::
 
-## 📸 API de Fotos de Pesquisa
+## 📸 API de Fotos de Investigación
 
-A extração de fotos via API está disponível apenas mediante liberação específica.
+La extracción de fotos vía API está disponible únicamente mediante liberación específica.
 
-Para acessar os endpoints de fotos de pesquisa, é necessário solicitar autorização ao nosso time de Suporte.
+Para acceder a los endpoints de fotos de investigación, es necesario solicitar autorización a nuestro equipo de Soporte.
 
-::: tip Informação importante
-Este recurso não está disponível publicamente na documentação por padrão.
+::: tip Información importante
+Este recurso no está disponible públicamente en la documentación por defecto.
 
-Para solicitar acesso, [abra um ticket com o Suporte](https://help.involves.com/hc/pt-br/requests/new){target="_blank" rel="noopener"} informando o ambiente desejado para validação.
+Para solicitar acceso, [abre un ticket con el Soporte](https://help.involves.com/hc/pt-br/requests/new){target="_blank" rel="noopener"} informando el entorno deseado para validación.
 :::
 
-## 🔧 Exemplos de Autenticação
+## 🔧 Ejemplos de Autenticación
 
-### Autenticação Básica
+### Autenticación Básica
 
 ::: code-group
 
@@ -114,71 +114,71 @@ response = requests.get('https://exemplo.involves.com/webservices/api/v3', heade
 
 :::
 
-### Headers Obrigatórios
+### Headers Obligatorios
 
 <script setup>
 
 const headersTable = [
   {
     key: 'Authorization',
-    description: '<code>Basic &lt;token&gt;</code> — Token de autenticação em Base64',
+    description: '<code>Basic &lt;token&gt;</code> — Token de autenticación en Base64',
     color: 'blue'
   },
   {
     key: 'X-AGILE-CLIENT',
-    description: '<code>EXTERNAL_APP</code> — Identificador do cliente',
+    description: '<code>EXTERNAL_APP</code> — Identificador del cliente',
     color: 'purple'
   },
   {
     key: 'Accept-Version',
-    description: '<code>2020-02-26</code> — Versão da API',
+    description: '<code>2020-02-26</code> — Versión de la API',
     color: 'red'
   }
 ]
 </script>
 
-### Todos os endpoints da API requerem os seguintes headers
+### Todos los endpoints de la API requieren los siguientes headers
 
 <ApiCard
   title="request.headers"
   :items="headersTable"
 />
 
-::: warning Atenção
-Nunca compartilhe suas credenciais de acesso ou as inclua em código que será versionado.
-Sempre use variáveis de ambiente para armazenar informações sensíveis.
+::: warning Atención
+Nunca compartas tus credenciales de acceso o las incluyas en código que será versionado.
+Siempre usa variables de entorno para almacenar información sensible.
 :::
 
-## 📊 Exemplos de Resposta
+## 📊 Ejemplos de Respuesta
 
-### Resposta de Sucesso
+### Respuesta de Éxito
 
 ```json
 {
   "success": true,
   "data": {
     "id": 123,
-    "name": "Exemplo de Dados",
+    "name": "Ejemplo de datos",
     "created_at": "2024-01-15T10:30:00Z"
   },
-  "message": "Operação realizada com sucesso"
+  "message": "Operación realizada con éxito"
 }
 ```
 
-### Resposta de Erro
+### Respuesta de Error
 
 ```json
 {
   "success": false,
   "error": {
     "code": "AUTHENTICATION_FAILED",
-    "message": "Credenciais inválidas",
-    "details": "Usuário ou senha incorretos"
+    "message": "Credenciales inválidas",
+    "details": "Usuario o contraseña incorrectos"
   }
 }
 ```
 
-::: tip Dica
-Sempre verifique o campo `success` na resposta antes de processar os dados.
-Em caso de erro, o campo `error` conterá informações detalhadas sobre o problema.
+::: tip Consejo
+Siempre verifica el campo `success` en la respuesta antes de procesar los datos.
+En caso de error, el campo `error` contendrá información detallada sobre el problema.
 :::

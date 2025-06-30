@@ -1,77 +1,77 @@
 ---
-title: 'Autenticação e Cabeçalhos'
+title: 'Autenticación y Cabeceras'
 ---
 
-## 🔧 Cabeçalhos HTTP obrigatórios
+## 🔧 Cabeceras HTTP obligatorias
 
-Todas as requisições para a API devem incluir os seguintes cabeçalhos:
+Todas las peticiones a la API deben incluir las siguientes cabeceras:
 
 <ApiCard
   title="request.headers"
   :items="[
     {
       key: 'Authorization',
-      description: 'Basic base64(usuario:senha) — autenticação do usuário.',
+      description: 'Basic base64(usuario:senha) — autenticación del usuario.',
       color: 'blue'
     },
     {
       key: 'X-AGILE-CLIENT',
-      description: '<code>EXTERNAL_APP</code> — indica que a requisição é externa.',
+      description: '<code>EXTERNAL_APP</code> — indica que la petición es externa.',
       color: 'purple'
     },
     {
       key: 'Accept-Version',
-      description: '<code>2020-02-26</code> — define a versão da API v3 a ser usada.',
+      description: '<code>2020-02-26</code> — define la versión de la API v3 a usar.',
       color: 'pink'
     }
   ]"
 />
 
-## 📅 Versionamento via cabeçalho
+## 📅 Versionado vía cabecera
 
-A API v3 usa **versionamento por data** através do cabeçalho `Accept-Version`. Isso significa que você escolhe explicitamente qual versão da API usar, garantindo que sua integração nunca quebre inesperadamente.
+La API v3 usa **versionado por fecha** a través de la cabecera `Accept-Version`. Esto significa que eliges explícitamente qué versión de la API usar, garantizando que tu integración nunca se rompa inesperadamente.
 
-### Como funciona
+### Cómo funciona
 
 <ApiCard
   title="Accept-Version header"
   :items="[
     {
-      key: 'Versão atual:',
+      key: 'Versión actual:',
       description: '<code>2020-02-26</code>',
       color: 'green'
     },
     {
       key: 'Formato:',
-      description: '<code>YYYY-MM-DD</code> (data de lançamento)',
+      description: '<code>YYYY-MM-DD</code> (fecha de lanzamiento)',
       color: 'blue'
     },
     {
-      key: 'Obrigatório:',
-      description: 'Sim, em todas as requisições v3',
+      key: 'Obligatorio:',
+      description: 'Sí, en todas las peticiones v3',
       color: 'purple'
     }
   ]"
 />
 
-### Por que usar versionamento?
+### ¿Por qué usar versionado?
 
-**Exemplo prático do dia a dia:**
+**Ejemplo práctico del día a día:**
 
 ```bash
-# Sua integração atual (funcionando perfeitamente):
+# Tu integración actual (funcionando perfectamente):
 Accept-Version: 2020-02-26
 
-# Se a API lançar uma nova versão com mudanças:
-Accept-Version: 2021-05-14  # Nova versão com novos campos
+# Si la API lanza una nueva versión con cambios:
+Accept-Version: 2021-05-14  # Nueva versión con nuevos campos
 
-# Sua integração antiga continua funcionando:
-Accept-Version: 2020-02-26  # Sempre funciona!
+# Tu integración antigua sigue funcionando:
+Accept-Version: 2020-02-26  # ¡Siempre funciona!
 ```
 
-### Migrando entre versões
+### Migrando entre versiones
 
-Quando quiser usar novos recursos:
+Cuando quieras usar nuevos recursos:
 
 ::: code-group
 
@@ -108,39 +108,39 @@ curl -H "Accept-Version: 2020-02-26" \
 
 :::
 
-::: tip Benefícios do versionamento
+::: tip Beneficios del versionado
 
-- **Zero downtime:** Sua integração nunca quebra
-- **Migração gradual:** Teste novas versões sem afetar produção
-- **Controle total:** Você decide quando atualizar
-- **Compatibilidade:** Versões antigas sempre funcionam
+- **Cero tiempo de inactividad:** Tu integración nunca se rompe
+- **Migración gradual:** Prueba nuevas versiones sin afectar producción
+- **Control total:** Tú decides cuándo actualizar
+- **Compatibilidad:** Las versiones antiguas siempre funcionan
 :::
 
 ::: warning ⚠️ Importante
 
-- **v1 e v2:** Não precisam do header `Accept-Version`
-- **v3+:** O header é **obrigatório** em todas as requisições
-- **Versão padrão:** Sempre use `2020-02-26` a menos que precise de recursos específicos
+- **v1 y v2:** No necesitan el header `Accept-Version`
+- **v3+:** El header es **obligatorio** en todas las peticiones
+- **Versión por defecto:** Siempre usa `2020-02-26` a menos que necesites recursos específicos
 :::
 
-## 🔐 Autenticação
+## 🔐 Autenticación
 
-A API oferece **duas formas** de autenticação. Você pode escolher a que preferir:
+La API ofrece **dos formas** de autenticación. Puedes elegir la que prefieras:
 
-### Opção 1: Credenciais diretas (Recomendado para desenvolvimento)
+### Opción 1: Credenciales directas (Recomendado para desarrollo)
 
-Use seu **usuário e senha** do Involves Stage diretamente:
+Usa tu **usuario y contraseña** de Involves Stage directamente:
 
 <ApiCard
-  title="Authorization header - Credenciais diretas"
+  title="Authorization header - Credenciales directas"
   :items="[
     {
-      key: 'Usuário:',
+      key: 'Usuario:',
       description: '<code>seuUsuarioDoInvolvesStage</code>',
       color: 'blue'
     },
     {
-      key: 'Senha:',
+      key: 'Contraseña:',
       description: '<code>suaSenhaDoInvolvesStage</code>',
       color: 'purple'
     },
@@ -152,13 +152,13 @@ Use seu **usuário e senha** do Involves Stage diretamente:
   ]"
 />
 
-**Exemplo prático:**
+**Ejemplo práctico:**
 
 ```bash
-# Seu usuário: "joao.silva"
-# Sua senha: "minhaSenha123"
+# Tu usuario: "joao.silva"
+# Tu contraseña: "minhaSenha123"
 
-# No terminal:
+# En el terminal:
 echo -n "joao.silva:minhaSenha123" | base64
 # Resultado: am9hby5zaWx2YTptaW5oYVNlbmhhMTIz
 
@@ -166,12 +166,12 @@ echo -n "joao.silva:minhaSenha123" | base64
 Authorization: Basic am9hby5zaWx2YTptaW5oYVNlbmhhMTIz
 ```
 
-### Opção 2: Credenciais pré-codificadas
+### Opción 2: Credenciales pre-codificadas
 
-Use credenciais já codificadas em Base64 (útil para ambientes de produção):
+Usa credenciales ya codificadas en Base64 (útil para entornos de producción):
 
 <ApiCard
-  title="Authorization header - Credenciais pré-codificadas"
+  title="Authorization header - Credenciales pre-codificadas"
   :items="[
     {
       key: 'Header completo:',
@@ -181,37 +181,37 @@ Use credenciais já codificadas em Base64 (útil para ambientes de produção):
   ]"
 />
 
-::: tip 💡 Dicas para desenvolvedores
+::: tip 💡 Consejos para desarrolladores
 
-- **Para testes:** Use a Opção 1 com suas credenciais reais
-- **Para produção:** Use a Opção 2 com credenciais específicas do ambiente
-- **No JavaScript:** `btoa('usuario:senha')` gera o Base64 automaticamente
-- **No Python:** `base64.b64encode('usuario:senha'.encode()).decode()`
-- **No cURL:** Use `-u usuario:senha` e o cURL faz o Base64 automaticamente
+- **Para pruebas:** Usa la Opción 1 con tus credenciales reales
+- **Para producción:** Usa la Opción 2 con credenciales específicas del entorno
+- **En JavaScript:** `btoa('usuario:senha')` genera el Base64 automáticamente
+- **En Python:** `base64.b64encode('usuario:senha'.encode()).decode()`
+- **En cURL:** Usa `-u usuario:senha` y cURL hace el Base64 automáticamente
 :::
 
-::: warning ⚠️ Segurança
+::: warning ⚠️ Seguridad
 
-- Nunca commite credenciais no código
-- Use variáveis de ambiente para armazenar senhas
-- Em produção, considere usar tokens de API quando disponíveis
+- Nunca hagas commit de credenciales en el código
+- Usa variables de entorno para almacenar contraseñas
+- En producción, considera usar tokens de API cuando estén disponibles
 :::
 
-## 🌍 Identificação do Ambiente (Environment ID)
+## 🌍 Identificación del Entorno (Environment ID)
 
-A maioria dos endpoints exige o `environmentId`. A URL completa fica assim:
+La mayoría de los endpoints exigen el `environmentId`. La URL completa queda así:
 
 ```json
 https://exemplo.involves.com/webservices/api/v3/environments/{environmentId}
 ```
 
-Para obter o ID correto:
+Para obtener el ID correcto:
 
-1. Vá até **Administração de Ambientes** no Involves Stage.
-2. Selecione o ambiente desejado e clique em **Editar**.
-3. Copie o ID do ambiente exibido na URL do navegador.
+1. Ve a **Administración de Entornos** en Involves Stage.
+2. Selecciona el entorno deseado y haz clic en **Editar**.
+3. Copia el ID del entorno mostrado en la URL del navegador.
 
-::: tip 💡 Dica Pro
+::: tip 💡 Consejo Pro
 
-- Use o atalho **Ctrl + K → Administração de Ambientes** para encontrar a tela rapidamente.
+- Usa el atajo **Ctrl + K → Administración de Entornos** para encontrar la pantalla rápidamente.
 :::

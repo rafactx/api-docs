@@ -1,12 +1,12 @@
 ---
-title: Navegação de Dados
+title: Navegación de Datos
 ---
 
 ## 🔗 HATEOAS
 
-Utilizamos o padrão HATEOAS para indicar ações ou recursos relacionados em respostas JSON:
+Utilizamos el patrón HATEOAS para indicar acciones o recursos relacionados en respuestas JSON:
 
-Exemplo prático:
+Ejemplo práctico:
 
 ```json
 {
@@ -15,16 +15,16 @@ Exemplo prático:
 }
 ```
 
-- Utilize sempre a URL indicada em `_link` para acessar recursos relacionados.
-- URLs podem mudar futuramente, mas garantimos sempre a retrocompatibilidade do recurso retornado.
+- Utiliza siempre la URL indicada en `_link` para acceder a recursos relacionados.
+- Las URLs pueden cambiar en el futuro, pero garantizamos siempre la retrocompatibilidad del recurso retornado.
 
 ---
 
-## 📑 Paginação
+## 📑 Paginación
 
-Resultados grandes são paginados. Envie parâmetros como `page` (página atual) e `size` (tamanho da página).
+Los resultados grandes se paginan. Envía parámetros como `page` (página actual) y `size` (tamaño de la página).
 
-Exemplo de URL com paginação:
+Ejemplo de URL con paginación:
 
 ```json
 https://exemplo.involves.com/webservices/api/v3/environments/{environmentId}/resource?page=2&size=20
@@ -32,11 +32,11 @@ https://exemplo.involves.com/webservices/api/v3/environments/{environmentId}/res
 
 ---
 
-## 🔄 Sincronização de bases
+## 🔄 Sincronización de bases
 
 ::: warning
-A API não é indicada para sincronizações em tempo real ou em larga escala. Para esse tipo de
-operação, utilize o serviço dedicado **Data Integration**.
+La API no está indicada para sincronizaciones en tiempo real o a gran escala. Para este tipo de
+operación, utiliza el servicio dedicado **Data Integration**.
 
-Em caso de dúvidas ou para contratar, [abra um ticket com o Suporte](https://help.involves.com/hc/pt-br/requests/new){target="_blank" rel="noopener"}.
+En caso de dudas o para contratar, [abre un ticket con el Soporte](https://help.involves.com/hc/pt-br/requests/new){target="_blank" rel="noopener"}.
 :::

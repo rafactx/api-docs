@@ -1,77 +1,77 @@
 ---
-title: 'Autenticação e Cabeçalhos'
+title: 'Authentication and Headers'
 ---
 
-## 🔧 Cabeçalhos HTTP obrigatórios
+## 🔧 Required HTTP Headers
 
-Todas as requisições para a API devem incluir os seguintes cabeçalhos:
+All API requests must include the following headers:
 
 <ApiCard
   title="request.headers"
   :items="[
     {
       key: 'Authorization',
-      description: 'Basic base64(usuario:senha) — autenticação do usuário.',
+      description: 'Basic base64(usuario:senha) — user authentication.',
       color: 'blue'
     },
     {
       key: 'X-AGILE-CLIENT',
-      description: '<code>EXTERNAL_APP</code> — indica que a requisição é externa.',
+      description: '<code>EXTERNAL_APP</code> — indicates that the request is external.',
       color: 'purple'
     },
     {
       key: 'Accept-Version',
-      description: '<code>2020-02-26</code> — define a versão da API v3 a ser usada.',
+      description: '<code>2020-02-26</code> — defines the API v3 version to be used.',
       color: 'pink'
     }
   ]"
 />
 
-## 📅 Versionamento via cabeçalho
+## 📅 Versioning via header
 
-A API v3 usa **versionamento por data** através do cabeçalho `Accept-Version`. Isso significa que você escolhe explicitamente qual versão da API usar, garantindo que sua integração nunca quebre inesperadamente.
+The v3 API uses **date-based versioning** through the `Accept-Version` header. This means you explicitly choose which API version to use, ensuring your integration never breaks unexpectedly.
 
-### Como funciona
+### How it works
 
 <ApiCard
   title="Accept-Version header"
   :items="[
     {
-      key: 'Versão atual:',
+      key: 'Current version:',
       description: '<code>2020-02-26</code>',
       color: 'green'
     },
     {
-      key: 'Formato:',
-      description: '<code>YYYY-MM-DD</code> (data de lançamento)',
+      key: 'Format:',
+      description: '<code>YYYY-MM-DD</code> (release date)',
       color: 'blue'
     },
     {
-      key: 'Obrigatório:',
-      description: 'Sim, em todas as requisições v3',
+      key: 'Required:',
+      description: 'Yes, in all v3 requests',
       color: 'purple'
     }
   ]"
 />
 
-### Por que usar versionamento?
+### Why use versioning?
 
-**Exemplo prático do dia a dia:**
+**Practical daily example:**
 
 ```bash
-# Sua integração atual (funcionando perfeitamente):
+# Your current integration (working perfectly):
 Accept-Version: 2020-02-26
 
-# Se a API lançar uma nova versão com mudanças:
-Accept-Version: 2021-05-14  # Nova versão com novos campos
+# If the API releases a new version with changes:
+Accept-Version: 2021-05-14  # New version with new fields
 
-# Sua integração antiga continua funcionando:
-Accept-Version: 2020-02-26  # Sempre funciona!
+# Your old integration continues working:
+Accept-Version: 2020-02-26  # Always works!
 ```
 
-### Migrando entre versões
+### Migrating between versions
 
-Quando quiser usar novos recursos:
+When you want to use new features:
 
 ::: code-group
 
@@ -108,110 +108,110 @@ curl -H "Accept-Version: 2020-02-26" \
 
 :::
 
-::: tip Benefícios do versionamento
+::: tip Versioning benefits
 
-- **Zero downtime:** Sua integração nunca quebra
-- **Migração gradual:** Teste novas versões sem afetar produção
-- **Controle total:** Você decide quando atualizar
-- **Compatibilidade:** Versões antigas sempre funcionam
+- **Zero downtime:** Your integration never breaks
+- **Gradual migration:** Test new versions without affecting production
+- **Total control:** You decide when to update
+- **Compatibility:** Old versions always work
 :::
 
-::: warning ⚠️ Importante
+::: warning ⚠️ Important
 
-- **v1 e v2:** Não precisam do header `Accept-Version`
-- **v3+:** O header é **obrigatório** em todas as requisições
-- **Versão padrão:** Sempre use `2020-02-26` a menos que precise de recursos específicos
+- **v1 and v2:** Don't need the `Accept-Version` header
+- **v3+:** The header is **required** in all requests
+- **Default version:** Always use `2020-02-26` unless you need specific features
 :::
 
-## 🔐 Autenticação
+## 🔐 Authentication
 
-A API oferece **duas formas** de autenticação. Você pode escolher a que preferir:
+The API offers **two forms** of authentication. You can choose the one you prefer:
 
-### Opção 1: Credenciais diretas (Recomendado para desenvolvimento)
+### Option 1: Direct credentials (Recommended for development)
 
-Use seu **usuário e senha** do Involves Stage diretamente:
+Use your **username and password** from Involves Stage directly:
 
 <ApiCard
-  title="Authorization header - Credenciais diretas"
+  title="Authorization header - Direct credentials"
   :items="[
     {
-      key: 'Usuário:',
+      key: 'Username:',
       description: '<code>seuUsuarioDoInvolvesStage</code>',
       color: 'blue'
     },
     {
-      key: 'Senha:',
+      key: 'Password:',
       description: '<code>suaSenhaDoInvolvesStage</code>',
       color: 'purple'
     },
     {
-      key: 'Header completo:',
+      key: 'Complete header:',
       description: '<code>Authorization: Basic base64(usuario:senha)</code>',
       color: 'pink'
     }
   ]"
 />
 
-**Exemplo prático:**
+**Practical example:**
 
 ```bash
-# Seu usuário: "joao.silva"
-# Sua senha: "minhaSenha123"
+# Your username: "joao.silva"
+# Your password: "minhaSenha123"
 
-# No terminal:
+# In terminal:
 echo -n "joao.silva:minhaSenha123" | base64
-# Resultado: am9hby5zaWx2YTptaW5oYVNlbmhhMTIz
+# Result: am9hby5zaWx2YTptaW5oYVNlbmhhMTIz
 
-# Header final:
+# Final header:
 Authorization: Basic am9hby5zaWx2YTptaW5oYVNlbmhhMTIz
 ```
 
-### Opção 2: Credenciais pré-codificadas
+### Option 2: Pre-encoded credentials
 
-Use credenciais já codificadas em Base64 (útil para ambientes de produção):
+Use credentials already encoded in Base64 (useful for production environments):
 
 <ApiCard
-  title="Authorization header - Credenciais pré-codificadas"
+  title="Authorization header - Pre-encoded credentials"
   :items="[
     {
-      key: 'Header completo:',
+      key: 'Complete header:',
       description: '<code>Authorization: Basic YWdpbGl0bzppbnZvbHZlcw==</code>',
       color: 'pink'
     }
   ]"
 />
 
-::: tip 💡 Dicas para desenvolvedores
+::: tip 💡 Tips for developers
 
-- **Para testes:** Use a Opção 1 com suas credenciais reais
-- **Para produção:** Use a Opção 2 com credenciais específicas do ambiente
-- **No JavaScript:** `btoa('usuario:senha')` gera o Base64 automaticamente
-- **No Python:** `base64.b64encode('usuario:senha'.encode()).decode()`
-- **No cURL:** Use `-u usuario:senha` e o cURL faz o Base64 automaticamente
+- **For testing:** Use Option 1 with your real credentials
+- **For production:** Use Option 2 with environment-specific credentials
+- **In JavaScript:** `btoa('usuario:senha')` generates Base64 automatically
+- **In Python:** `base64.b64encode('usuario:senha'.encode()).decode()`
+- **In cURL:** Use `-u usuario:senha` and cURL does Base64 automatically
 :::
 
-::: warning ⚠️ Segurança
+::: warning ⚠️ Security
 
-- Nunca commite credenciais no código
-- Use variáveis de ambiente para armazenar senhas
-- Em produção, considere usar tokens de API quando disponíveis
+- Never commit credentials in code
+- Use environment variables to store passwords
+- In production, consider using API tokens when available
 :::
 
-## 🌍 Identificação do Ambiente (Environment ID)
+## 🌍 Environment Identification (Environment ID)
 
-A maioria dos endpoints exige o `environmentId`. A URL completa fica assim:
+Most endpoints require the `environmentId`. The complete URL looks like this:
 
 ```json
 https://exemplo.involves.com/webservices/api/v3/environments/{environmentId}
 ```
 
-Para obter o ID correto:
+To get the correct ID:
 
-1. Vá até **Administração de Ambientes** no Involves Stage.
-2. Selecione o ambiente desejado e clique em **Editar**.
-3. Copie o ID do ambiente exibido na URL do navegador.
+1. Go to **Environment Administration** in Involves Stage.
+2. Select the desired environment and click **Edit**.
+3. Copy the environment ID displayed in the browser URL.
 
-::: tip 💡 Dica Pro
+::: tip 💡 Pro Tip
 
-- Use o atalho **Ctrl + K → Administração de Ambientes** para encontrar a tela rapidamente.
+- Use the shortcut **Ctrl + K → Environment Administration** to find the screen quickly.
 :::

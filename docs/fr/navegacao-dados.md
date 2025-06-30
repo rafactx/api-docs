@@ -1,12 +1,12 @@
 ---
-title: Navegação de Dados
+title: Navigation des données
 ---
 
 ## 🔗 HATEOAS
 
-Utilizamos o padrão HATEOAS para indicar ações ou recursos relacionados em respostas JSON:
+Nous utilisons le standard HATEOAS pour indiquer les actions ou ressources liées dans les réponses JSON :
 
-Exemplo prático:
+Exemple pratique :
 
 ```json
 {
@@ -15,16 +15,16 @@ Exemplo prático:
 }
 ```
 
-- Utilize sempre a URL indicada em `_link` para acessar recursos relacionados.
-- URLs podem mudar futuramente, mas garantimos sempre a retrocompatibilidade do recurso retornado.
+- Utilisez toujours l'URL indiquée dans `_link` pour accéder aux ressources liées.
+- Les URLs peuvent changer à l'avenir, mais nous garantissons toujours la rétrocompatibilité de la ressource retournée.
 
 ---
 
-## 📑 Paginação
+## 📑 Pagination
 
-Resultados grandes são paginados. Envie parâmetros como `page` (página atual) e `size` (tamanho da página).
+Les résultats volumineux sont paginés. Envoyez des paramètres comme `page` (page actuelle) et `size` (taille de la page).
 
-Exemplo de URL com paginação:
+Exemple d'URL avec pagination :
 
 ```json
 https://exemplo.involves.com/webservices/api/v3/environments/{environmentId}/resource?page=2&size=20
@@ -32,11 +32,10 @@ https://exemplo.involves.com/webservices/api/v3/environments/{environmentId}/res
 
 ---
 
-## 🔄 Sincronização de bases
+## 🔄 Synchronisation des bases
 
 ::: warning
-A API não é indicada para sincronizações em tempo real ou em larga escala. Para esse tipo de
-operação, utilize o serviço dedicado **Data Integration**.
+L'API n'est pas recommandée pour les synchronisations en temps réel ou à grande échelle. Pour ce type d'opération, utilisez le service dédié **Data Integration**.
 
-Em caso de dúvidas ou para contratar, [abra um ticket com o Suporte](https://help.involves.com/hc/pt-br/requests/new){target="_blank" rel="noopener"}.
+En cas de doute ou pour souscrire, [ouvrez un ticket avec le Support](https://help.involves.com/hc/pt-br/requests/new){target="_blank" rel="noopener"}.
 :::

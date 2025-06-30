@@ -1,77 +1,77 @@
 ---
-title: 'Autenticação e Cabeçalhos'
+title: 'Authentification et En-têtes'
 ---
 
-## 🔧 Cabeçalhos HTTP obrigatórios
+## 🔧 En-têtes HTTP obligatoires
 
-Todas as requisições para a API devem incluir os seguintes cabeçalhos:
+Toutes les requêtes vers l'API doivent inclure les en-têtes suivants :
 
 <ApiCard
   title="request.headers"
   :items="[
     {
       key: 'Authorization',
-      description: 'Basic base64(usuario:senha) — autenticação do usuário.',
+      description: 'Basic base64(usuario:senha) — authentification de l\'utilisateur.',
       color: 'blue'
     },
     {
       key: 'X-AGILE-CLIENT',
-      description: '<code>EXTERNAL_APP</code> — indica que a requisição é externa.',
+      description: '<code>EXTERNAL_APP</code> — indique que la requête est externe.',
       color: 'purple'
     },
     {
       key: 'Accept-Version',
-      description: '<code>2020-02-26</code> — define a versão da API v3 a ser usada.',
+      description: '<code>2020-02-26</code> — définit la version de l\'API v3 à utiliser.',
       color: 'pink'
     }
   ]"
 />
 
-## 📅 Versionamento via cabeçalho
+## 📅 Versioning via en-tête
 
-A API v3 usa **versionamento por data** através do cabeçalho `Accept-Version`. Isso significa que você escolhe explicitamente qual versão da API usar, garantindo que sua integração nunca quebre inesperadamente.
+L'API v3 utilise le **versioning par date** via l'en-tête `Accept-Version`. Cela signifie que vous choisissez explicitement quelle version de l'API utiliser, garantissant que votre intégration ne se casse jamais de manière inattendue.
 
-### Como funciona
+### Comment ça fonctionne
 
 <ApiCard
   title="Accept-Version header"
   :items="[
     {
-      key: 'Versão atual:',
+      key: 'Version actuelle :',
       description: '<code>2020-02-26</code>',
       color: 'green'
     },
     {
-      key: 'Formato:',
-      description: '<code>YYYY-MM-DD</code> (data de lançamento)',
+      key: 'Format :',
+      description: '<code>YYYY-MM-DD</code> (date de lancement)',
       color: 'blue'
     },
     {
-      key: 'Obrigatório:',
-      description: 'Sim, em todas as requisições v3',
+      key: 'Obligatoire :',
+      description: 'Oui, dans toutes les requêtes v3',
       color: 'purple'
     }
   ]"
 />
 
-### Por que usar versionamento?
+### Pourquoi utiliser le versioning ?
 
-**Exemplo prático do dia a dia:**
+**Exemple pratique du quotidien :**
 
 ```bash
-# Sua integração atual (funcionando perfeitamente):
+# Votre intégration actuelle (fonctionne parfaitement) :
 Accept-Version: 2020-02-26
 
-# Se a API lançar uma nova versão com mudanças:
-Accept-Version: 2021-05-14  # Nova versão com novos campos
+# Si l'API lance une nouvelle version avec des changements :
+Accept-Version: 2021-05-14  # Nouvelle version avec de nouveaux champs
 
-# Sua integração antiga continua funcionando:
-Accept-Version: 2020-02-26  # Sempre funciona!
+# Votre ancienne intégration continue de fonctionner :
+Accept-Version: 2020-02-26  # Fonctionne toujours !
 ```
 
-### Migrando entre versões
+### Migration entre versions
 
-Quando quiser usar novos recursos:
+Quand vous voulez utiliser de nouvelles fonctionnalités :
 
 ::: code-group
 
@@ -108,110 +108,110 @@ curl -H "Accept-Version: 2020-02-26" \
 
 :::
 
-::: tip Benefícios do versionamento
+::: tip Avantages du versioning
 
-- **Zero downtime:** Sua integração nunca quebra
-- **Migração gradual:** Teste novas versões sem afetar produção
-- **Controle total:** Você decide quando atualizar
-- **Compatibilidade:** Versões antigas sempre funcionam
+- **Zéro temps d'arrêt :** Votre intégration ne se casse jamais
+- **Migration progressive :** Testez de nouvelles versions sans affecter la production
+- **Contrôle total :** Vous décidez quand mettre à jour
+- **Compatibilité :** Les anciennes versions fonctionnent toujours
 :::
 
-::: warning ⚠️ Importante
+::: warning ⚠️ Important
 
-- **v1 e v2:** Não precisam do header `Accept-Version`
-- **v3+:** O header é **obrigatório** em todas as requisições
-- **Versão padrão:** Sempre use `2020-02-26` a menos que precise de recursos específicos
+- **v1 et v2 :** N'ont pas besoin de l'en-tête `Accept-Version`
+- **v3+ :** L'en-tête est **obligatoire** dans toutes les requêtes
+- **Version par défaut :** Utilisez toujours `2020-02-26` sauf si vous avez besoin de fonctionnalités spécifiques
 :::
 
-## 🔐 Autenticação
+## 🔐 Authentification
 
-A API oferece **duas formas** de autenticação. Você pode escolher a que preferir:
+L'API offre **deux formes** d'authentification. Vous pouvez choisir celle que vous préférez :
 
-### Opção 1: Credenciais diretas (Recomendado para desenvolvimento)
+### Option 1 : Identifiants directs (Recommandé pour le développement)
 
-Use seu **usuário e senha** do Involves Stage diretamente:
+Utilisez votre **nom d'utilisateur et mot de passe** d'Involves Stage directement :
 
 <ApiCard
-  title="Authorization header - Credenciais diretas"
+  title="Authorization header - Identifiants directs"
   :items="[
     {
-      key: 'Usuário:',
+      key: 'Utilisateur :',
       description: '<code>seuUsuarioDoInvolvesStage</code>',
       color: 'blue'
     },
     {
-      key: 'Senha:',
+      key: 'Mot de passe :',
       description: '<code>suaSenhaDoInvolvesStage</code>',
       color: 'purple'
     },
     {
-      key: 'Header completo:',
+      key: 'En-tête complet :',
       description: '<code>Authorization: Basic base64(usuario:senha)</code>',
       color: 'pink'
     }
   ]"
 />
 
-**Exemplo prático:**
+**Exemple pratique :**
 
 ```bash
-# Seu usuário: "joao.silva"
-# Sua senha: "minhaSenha123"
+# Votre utilisateur : "joao.silva"
+# Votre mot de passe : "minhaSenha123"
 
-# No terminal:
+# Dans le terminal :
 echo -n "joao.silva:minhaSenha123" | base64
-# Resultado: am9hby5zaWx2YTptaW5oYVNlbmhhMTIz
+# Résultat : am9hby5zaWx2YTptaW5oYVNlbmhhMTIz
 
-# Header final:
+# En-tête final :
 Authorization: Basic am9hby5zaWx2YTptaW5oYVNlbmhhMTIz
 ```
 
-### Opção 2: Credenciais pré-codificadas
+### Option 2 : Identifiants pré-codés
 
-Use credenciais já codificadas em Base64 (útil para ambientes de produção):
+Utilisez des identifiants déjà codés en Base64 (utile pour les environnements de production) :
 
 <ApiCard
-  title="Authorization header - Credenciais pré-codificadas"
+  title="Authorization header - Identifiants pré-codés"
   :items="[
     {
-      key: 'Header completo:',
+      key: 'En-tête complet :',
       description: '<code>Authorization: Basic YWdpbGl0bzppbnZvbHZlcw==</code>',
       color: 'pink'
     }
   ]"
 />
 
-::: tip 💡 Dicas para desenvolvedores
+::: tip 💡 Conseils pour les développeurs
 
-- **Para testes:** Use a Opção 1 com suas credenciais reais
-- **Para produção:** Use a Opção 2 com credenciais específicas do ambiente
-- **No JavaScript:** `btoa('usuario:senha')` gera o Base64 automaticamente
-- **No Python:** `base64.b64encode('usuario:senha'.encode()).decode()`
-- **No cURL:** Use `-u usuario:senha` e o cURL faz o Base64 automaticamente
+- **Pour les tests :** Utilisez l'Option 1 avec vos identifiants réels
+- **Pour la production :** Utilisez l'Option 2 avec des identifiants spécifiques à l'environnement
+- **En JavaScript :** `btoa('usuario:senha')` génère le Base64 automatiquement
+- **En Python :** `base64.b64encode('usuario:senha'.encode()).decode()`
+- **En cURL :** Utilisez `-u usuario:senha` et cURL fait le Base64 automatiquement
 :::
 
-::: warning ⚠️ Segurança
+::: warning ⚠️ Sécurité
 
-- Nunca commite credenciais no código
-- Use variáveis de ambiente para armazenar senhas
-- Em produção, considere usar tokens de API quando disponíveis
+- Ne committez jamais d'identifiants dans le code
+- Utilisez des variables d'environnement pour stocker les mots de passe
+- En production, considérez l'utilisation de tokens d'API quand disponibles
 :::
 
-## 🌍 Identificação do Ambiente (Environment ID)
+## 🌍 Identification de l'Environnement (Environment ID)
 
-A maioria dos endpoints exige o `environmentId`. A URL completa fica assim:
+La plupart des endpoints exigent l'`environmentId`. L'URL complète ressemble à ceci :
 
 ```json
 https://exemplo.involves.com/webservices/api/v3/environments/{environmentId}
 ```
 
-Para obter o ID correto:
+Pour obtenir l'ID correct :
 
-1. Vá até **Administração de Ambientes** no Involves Stage.
-2. Selecione o ambiente desejado e clique em **Editar**.
-3. Copie o ID do ambiente exibido na URL do navegador.
+1. Allez dans **Administration des Environnements** dans Involves Stage.
+2. Sélectionnez l'environnement souhaité et cliquez sur **Modifier**.
+3. Copiez l'ID de l'environnement affiché dans l'URL du navigateur.
 
-::: tip 💡 Dica Pro
+::: tip 💡 Conseil Pro
 
-- Use o atalho **Ctrl + K → Administração de Ambientes** para encontrar a tela rapidamente.
+- Utilisez le raccourci **Ctrl + K → Administration des Environnements** pour trouver l'écran rapidement.
 :::

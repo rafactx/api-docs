@@ -1,53 +1,53 @@
 ---
-title: Respostas & Erros
-description: 'Códigos de status HTTP, formatos de resposta e tratamento de erros da API do Involves Stage.'
+title: Réponses & Erreurs
+description: "Codes de statut HTTP, formats de réponse et traitement des erreurs de l'API d'Involves Stage."
 ---
 
-## 📜 Respostas HTTP
+## 📜 Réponses HTTP
 
-A API retorna sempre um status HTTP e, geralmente, um objeto JSON com detalhes específicos.
+L'API retourne toujours un statut HTTP et, généralement, un objet JSON avec des détails spécifiques.
 
 <script setup>
 
 const statusTable = [
   {
     key: '200',
-    description: '<code>OK</code> — Requisição bem-sucedida',
+    description: '<code>OK</code> — Requête réussie',
     color: 'green'
   },
   {
     key: '400',
-    description: '<code>Bad Request</code> — Erro na requisição (verifique formato e parâmetros)',
+    description: '<code>Bad Request</code> — Erreur dans la requête (vérifiez le format et les paramètres)',
     color: 'red'
   },
   {
     key: '401',
-    description: '<code>Unauthorized</code> — Erro de autenticação',
+    description: '<code>Unauthorized</code> — Erreur d\'authentification',
     color: 'red'
   },
   {
     key: '403',
-    description: '<code>Forbidden</code> — Permissões insuficientes',
+    description: '<code>Forbidden</code> — Permissions insuffisantes',
     color: 'red'
   },
   {
     key: '404',
-    description: '<code>Not Found</code> — Recurso ou URL inexistente',
+    description: '<code>Not Found</code> — Ressource ou URL inexistante',
     color: 'purple'
   },
   {
     key: '406',
-    description: '<code>Not Acceptable</code> — Versão do endpoint inválida ou cabeçalho incorreto',
+    description: '<code>Not Acceptable</code> — Version du endpoint invalide ou en-tête incorrect',
     color: 'yellow'
   },
   {
     key: '412',
-    description: '<code>Precondition Failed</code> — Cabeçalhos obrigatórios ausentes ou incorretos',
+    description: '<code>Precondition Failed</code> — En-têtes obligatoires manquants ou incorrects',
     color: 'yellow'
   },
   {
     key: '500',
-    description: '<code>Internal Server Error</code> — Erro interno no servidor (entre em contato com suporte técnico)',
+    description: '<code>Internal Server Error</code> — Erreur interne du serveur (contactez le support technique)',
     color: 'pink'
   }
 ]
@@ -58,8 +58,8 @@ const statusTable = [
   :items="statusTable"
 />
 
-::: tip Verificação de Status
-Para verificar o status de uma requisição:
+::: tip Vérification du statut
+Pour vérifier le statut d'une requête :
 
 ```bash
 curl -I https://api.involves.com/v3/endpoint | grep HTTP
@@ -67,66 +67,66 @@ curl -I https://api.involves.com/v3/endpoint | grep HTTP
 
 :::
 
-## ⚠️ Tratamento de erros
+## ⚠️ Traitement des erreurs
 
-Caso ocorra erro, retornamos um objeto detalhado com informações úteis:
+En cas d'erreur, nous retournons un objet détaillé avec des informations utiles :
 
-### Exemplo de erro (API v3)
+### Exemple d'erreur (API v3)
 
 ```json
 {
   "status": 400,
   "term": "ID_INVALIDO",
-  "message": "O ID informado é inválido.",
+  "message": "L'ID fourni est invalide.",
   "details": [
     {
       "field": "id",
-      "message": "O ID deve ser um número inteiro válido."
+      "message": "L'ID doit être un nombre entier valide."
     }
   ]
 }
 ```
 
-### Estrutura do objeto de erro
+### Structure de l'objet d'erreur
 
-| Campo | Tipo | Descrição |
-|-------|------|-----------|
-| `status` | number | Código de status HTTP |
-| `term` | string | Identificador único do erro |
-| `message` | string | Mensagem descritiva do erro |
-| `details` | array | Lista de detalhes específicos do erro |
+| Champ | Type | Description |
+|-------|------|-------------|
+| `status` | number | Code de statut HTTP |
+| `term` | string | Identifiant unique de l'erreur |
+| `message` | string | Message descriptif de l'erreur |
+| `details` | array | Liste des détails spécifiques de l'erreur |
 
-### Códigos de erro comuns
+### Codes d'erreur courants
 
-| Termo | Status | Descrição |
-|-------|--------|-----------|
-| `AUTHENTICATION_FAILED` | 401 | Credenciais inválidas |
-| `INSUFFICIENT_PERMISSIONS` | 403 | Permissões insuficientes |
-| `RESOURCE_NOT_FOUND` | 404 | Recurso não encontrado |
-| `INVALID_REQUEST` | 400 | Requisição malformada |
-| `MISSING_HEADERS` | 412 | Cabeçalhos obrigatórios ausentes |
+| Terme | Statut | Description |
+|-------|--------|-------------|
+| `AUTHENTICATION_FAILED` | 401 | Identifiants invalides |
+| `INSUFFICIENT_PERMISSIONS` | 403 | Permissions insuffisantes |
+| `RESOURCE_NOT_FOUND` | 404 | Ressource non trouvée |
+| `INVALID_REQUEST` | 400 | Requête malformée |
+| `MISSING_HEADERS` | 412 | En-têtes obligatoires manquants |
 
-::: warning Atenção
-Para erros de código **404**, verifique se o recurso existe ou se o endereço está correto (incluindo HTTPS e environmentId, quando aplicável).
+::: warning Attention
+Pour les erreurs de code **404**, vérifiez si la ressource existe ou si l'adresse est correcte (y compris HTTPS et environmentId, le cas échéant).
 :::
 
-## 📊 Exemplos de resposta
+## 📊 Exemples de réponse
 
-### Resposta de sucesso
+### Réponse de succès
 
 ```json
 {
   "success": true,
   "data": {
     "id": 123,
-    "name": "Exemplo de Dados",
+    "name": "Exemple de données",
     "created_at": "2024-01-15T10:30:00Z"
   },
-  "message": "Operação realizada com sucesso"
+  "message": "Opération réalisée avec succès"
 }
 ```
 
-### Resposta com paginação
+### Réponse avec pagination
 
 ```json
 {
@@ -150,12 +150,12 @@ Para erros de código **404**, verifique se o recurso existe ou se o endereço e
 }
 ```
 
-::: tip Dica
-Sempre verifique o campo `success` na resposta antes de processar os dados.
-Em caso de erro, o campo `error` conterá informações detalhadas sobre o problema.
+::: tip Conseil
+Vérifiez toujours le champ `success` dans la réponse avant de traiter les données.
+En cas d'erreur, le champ `error` contiendra des informations détaillées sur le problème.
 :::
 
-## 🔧 Tratamento de erros em diferentes linguagens
+## 🔧 Traitement des erreurs dans différents langages
 
 ::: code-group
 
@@ -171,14 +171,14 @@ try {
 
   if (!response.ok) {
     const errorData = await response.json();
-    console.error(`Erro ${errorData.status}: ${errorData.message}`);
+    console.error(`Erreur ${errorData.status}: ${errorData.message}`);
     return;
   }
 
   const data = await response.json();
   console.log(data);
 } catch (error) {
-  console.error('Erro na requisição:', error);
+  console.error('Erreur dans la requête:', error);
 }
 ```
 
@@ -198,9 +198,9 @@ try:
 
 except requests.exceptions.HTTPError as e:
     error_data = e.response.json()
-    print(f"Erro {error_data['status']}: {error_data['message']}")
+    print(f"Erreur {error_data['status']}: {error_data['message']}")
 except Exception as e:
-    print(f"Erro na requisição: {e}")
+    print(f"Erreur dans la requête: {e}")
 ```
 
 ```php [PHP]
@@ -219,7 +219,7 @@ curl_close($ch);
 
 if ($httpCode >= 400) {
     $errorData = json_decode($response, true);
-    echo "Erro {$errorData['status']}: {$errorData['message']}";
+    echo "Erreur {$errorData['status']}: {$errorData['message']}";
 } else {
     $data = json_decode($response, true);
     print_r($data);

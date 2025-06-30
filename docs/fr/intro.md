@@ -1,28 +1,27 @@
 ---
-
-title: Vue d’ensemble
+title: Vue d'ensemble
 description: Bonnes pratiques pour se connecter en toute sécurité à l'API d'Involves Stage.
--------------------------------------------------------------------------------------------
+---
 
 ## 🚀 Introduction
 
-L’API **Involves Stage** permet d’intégrer facilement des systèmes externes, en automatisant les processus et en simplifiant vos opérations.
-Développée selon les principes REST, notre API est intuitive, facile à utiliser et entièrement compatible avec les clients HTTP standards, sans nécessiter de développement particulier.
+L'API d'**Involves Stage** permet d'intégrer facilement des systèmes externes, d'automatiser les processus et de simplifier vos opérations.
+Développée en suivant les principes REST, notre API est intuitive, facile à utiliser et entièrement compatible avec les clients HTTP courants, sans nécessiter de développement spécial.
 
 ---
 
-L’URL de base pour toutes les requêtes est :
+L'URL de base pour toutes les requêtes est :
 
-\::: code-group
+::: code-group
 
 ```bash [URL de base]
 https://exemplo.involves.com/webservices/api/v3
 ```
 
-```javascript [Exemple basique]
+```javascript [Exemple de base]
 const baseUrl = 'https://exemplo.involves.com/webservices/api/v3';
 const headers = {
-  'Authorization': 'Basic ' + btoa('utilisateur:motdepasse'),
+  'Authorization': 'Basic ' + btoa('usuario:senha'),
   'X-AGILE-CLIENT': 'EXTERNAL_APP',
   'Accept-Version': '2020-02-26'
 };
@@ -32,12 +31,12 @@ fetch(baseUrl, { headers })
   .then(data => console.log(data));
 ```
 
-```python [Exemple basique]
+```python [Exemple de base]
 import requests
 
 base_url = 'https://exemplo.involves.com/webservices/api/v3'
 headers = {
-    'Authorization': 'Basic ' + base64.b64encode('utilisateur:motdepasse'.encode()).decode(),
+    'Authorization': 'Basic ' + base64.b64encode('usuario:senha'.encode()).decode(),
     'X-AGILE-CLIENT': 'EXTERNAL_APP',
     'Accept-Version': '2020-02-26'
 }
@@ -47,18 +46,18 @@ data = response.json()
 print(data)
 ```
 
-\:::
+:::
 
-\::: tip Astuce
-Ne faites jamais de tests directement dans l’environnement de production.
+::: tip Conseil
+Ne testez jamais directement en environnement de production.
 
-Créez un environnement spécifique (sandbox) avec des utilisateurs dédiés aux tests.
+Créez un environnement spécifique (sandbox) avec des utilisateurs exclusifs pour les tests.
 
-Si vous avez besoin d’aide pour la configuration, [ouvrez un ticket auprès du support](https://help.involves.com/hc/fr/requests/new){target="\_blank" rel="noopener"}.
-\:::
+Si vous avez besoin d'aide pour configurer, [ouvrez un ticket avec le Support](https://help.involves.com/hc/pt-br/requests/new){target="_blank" rel="noopener"}.
+:::
 
 ## 📚 À propos de cette documentation
 
-Cette documentation est synchronisée avec la dernière version de l’API Involves Stage.<br />
-Cependant, de légères différences peuvent apparaître si votre instance utilise une version antérieure.
-Dans la mesure du possible, vérifiez l’en-tête de version (`Accept-Version`) ou contactez le support en cas de doute.
+Cette documentation est maintenue en synchronisation avec la version la plus récente de l'API d'Involves Stage.<br />
+Cependant, de petites différences peuvent survenir si votre instance est sur une version antérieure.
+Dans la mesure du possible, vérifiez l'en-tête de version (Accept-Version) ou consultez le support en cas de doute.
