@@ -32,11 +32,12 @@ export default defineConfig({
   ],
 
   locales: {
-    root: {
+    pt: {
       label: 'Português (Brasil)',
       lang: 'pt',
       title: 'Involves Stage API Reference',
-      description: 'Documentação Oficial do Involves Stage',
+      description: 'Documentação Oficial da API do Involves Stage',
+      link: '/pt/',
       themeConfig: {
         siteTitle: false,
         logo: sharedLogo,
@@ -114,6 +115,8 @@ export default defineConfig({
     en: {
       label: 'English',
       lang: 'en',
+      title: 'Involves Stage API Reference',
+      description: 'Official Documentation for Involves Stage API',
       link: '/en/',
       themeConfig: {
         siteTitle: false,
@@ -161,6 +164,8 @@ export default defineConfig({
     es: {
       label: 'Español',
       lang: 'es',
+      title: 'Referencia de la API de Involves Stage',
+      description: 'Documentación oficial de la API de Involves Stage',
       link: '/es/',
       themeConfig: {
         siteTitle: false,
@@ -208,6 +213,8 @@ export default defineConfig({
     fr: {
       label: 'Français',
       lang: 'fr',
+      title: "Référence de l'API Involves Stage",
+      description: "Documentation officielle de l'API Involves Stage",
       link: '/fr/',
       themeConfig: {
         siteTitle: false,
